@@ -2,7 +2,7 @@
 --From Prelude
 listLast :: [a] -> a
 listLast [x] = x --base case is when there's just one element remaining
-listLast (_:xs) = listLast xs --if there's anything in the head, continue until there's one element left
+listLast (_:xs) = listLast xs --iterate through the list until there is no successor left 
 listLast [] = error "Can't do last of an empty list!"
 
 listLast1 :: [a] -> a
