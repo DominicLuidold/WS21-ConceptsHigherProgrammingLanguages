@@ -18,8 +18,7 @@ myabs n | n >= 0    = n
       | otherwise = -n
 
 halve :: [a] -> ([a],[a])
-halve xs |  mod (length xs) 2 /= 0 = (xs,[])
-        | otherwise = splitAt (length xs `div` 2) xs
+halve xs = splitAt (length xs `div` 2) xs
 
 -- midnight :: a -> b -> c-> (d,e)
 -- TODO
@@ -48,6 +47,28 @@ euclid a b | a <= 0 || b<=0 = 0
 compress :: Eq a => [a] -> [a]
 compress [] = []
 compress [x] = [x]
-compress (x1:x2:xs) 
+compress (x1:x2:xs)
                 | x1==x2 = compress (x2:xs)
                 | otherwise = x1:compress (x2:xs)
+
+--More Implementations https://wiki.haskell.org/99_questions/Solutions/9
+pack :: Eq a => [a] -> [[a]]
+pack [] = []
+pack (x:xs) = let (first,rest) = span (==x) xs -- https://hackage.haskell.org/package/base-4.15.0.0/docs/Prelude.html#v:span
+               in (x:first) : pack rest
+
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map (\x -> (length x,head x)) . pack
+
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge x [] = x
+merge [] x = x
+merge l1@(x:xs) l2@(y:ys)
+  | x < y     = x:(merge xs l2)
+  | otherwise = y:(merge l1 ys)
+
+msort :: Ord a => [a] -> [a]
+msort [] = []
+msort [x] = [x]
+msort x =  merge (msort (fst (halve x))) (msort (snd (halve x)))
