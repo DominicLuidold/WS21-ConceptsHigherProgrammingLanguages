@@ -20,9 +20,14 @@ myabs n | n >= 0    = n
 halve :: [a] -> ([a],[a])
 halve xs = splitAt (length xs `div` 2) xs
 
--- midnight :: a -> b -> c-> (d,e)
--- TODO
-
+-- Formula from https://www.schlauerlernen.de/mitternachtsformel-rechner/
+midnight :: Float -> Float -> Float -> (Float,Float)        
+midnight a b c = if z < 0 then error "Imaginary result squareroot of negative number" else (x, y)
+                        where
+                          x = - b / (2 * a) + sqrt z / (2 * a)
+                          y = - b / (2 * a) - sqrt z / (2 * a)
+                          z = b * b - 4 * a * c
+                          
 median :: [Float] -> Float
 median x | null x = 0
         | mod (length x) 2 /= 0 = x !! (length x `div` 2)
