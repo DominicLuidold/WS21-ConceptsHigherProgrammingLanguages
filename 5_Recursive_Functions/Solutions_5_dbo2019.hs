@@ -9,3 +9,6 @@ msort :: Ord a => [a] -> [a]
 msort [] = []
 msort [x] = [x]
 msort x =  merge (msort (fst (halve x))) (msort (snd (halve x)))
+
+halve :: [a] -> ([a],[a])
+halve xs = splitAt (length xs `div` 2) xs
