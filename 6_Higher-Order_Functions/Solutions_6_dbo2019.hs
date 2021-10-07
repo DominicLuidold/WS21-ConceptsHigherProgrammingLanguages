@@ -20,8 +20,8 @@ myunfold p h t x
   | otherwise = h x : myunfold p h t (t x)
 
 mymap :: (b -> a) -> [b] -> [a]
-mymap func = myunfold (const False) (func . head) tail  -- (const False) keine leere Liste
+mymap func = myunfold (null) (func . head) tail  -- null testet ob liste leer ist
 
-
+-- http://zvon.org/other/haskell/Outputprelude/iterate_f.html 
 myiteration :: (a -> a) -> a -> [a]
 myiteration = myunfold (const False) id -- http://zvon.org/other/haskell/Outputprelude/id_f.html
