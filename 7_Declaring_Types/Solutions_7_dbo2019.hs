@@ -1,5 +1,5 @@
 data Nat = Zero 
-         | Succ Nat
+         | Succ Nat deriving Show
 
 int2nat :: Int -> Nat
 int2nat 0 = Zero
@@ -30,3 +30,13 @@ multbetter :: Nat -> Nat -> Nat
 multbetter Zero  _ = Zero
 multbetter  _ Zero = Zero
 multbetter m (Succ n) = add m  (multbetter m  n)
+
+
+sub :: Nat -> Nat -> Nat
+sub n  Zero = n
+sub (Succ m) (Succ n) = sub m n
+
+
+div :: Nat -> Nat -> Nat
+div Zero _ = Zero
+div m n = 
