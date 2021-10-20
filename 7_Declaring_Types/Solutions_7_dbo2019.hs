@@ -48,11 +48,17 @@ checkheight (Node l _ r) = max(checkheight l) (checkheight r) + 1 --https://www.
 sub' :: Nat -> Nat -> Nat
 sub' m Zero = m
 sub' Zero n = error ("No Natrual Number result maybe negative")
-sub' (Succ m) (Succ n) = sub m n
+sub' (Succ m) (Succ n) = sub' m n
 
+
+
+-- https://math.stackexchange.com/questions/186421/how-to-divide-using-addition-or-subtraction
+-- https://www.youtube.com/watch?v=c9R7cGenD8Y
+-- Test nat2int( division (int2nat 18) (int2nat 3) )
+-- Test  division (int2nat 18) (int2nat 0) for the infinity version
 division :: Nat -> Nat -> Nat
-division _ Zero = Zero
-division x y = sub x y
+division Zero _ = Zero
+division x y = Succ (division (sub' x y) y)
 
 -- Binary Tree
 -- Example  Node (Node (Leaf 1) 3 (Leaf 4)) 5 (Node (Leaf 6) 7 (Leaf 9))
@@ -67,8 +73,6 @@ treeDepth  (Node l _ r) = max(treeDepth  l) (treeDepth  r) + 1 --https://www.gee
 countNodes :: Tree a -> Int
 countNodes (Leaf _) = 0
 countNodes (Node l _ r) = countNodes l + countNodes r + 1
-
-
 
 getVal :: Ord a => Tree a -> a
 getVal (Leaf v)   =  v
