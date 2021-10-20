@@ -36,7 +36,20 @@ sub :: Nat -> Nat -> Nat
 sub n  Zero = n
 sub (Succ m) (Succ n) = sub m n
 
+checkcomplete :: Tree a -> Bool 
+checkcomplete (Leaf a) = True
+checkcomplete (Node x a b) = checkcomplete a && checkcomplete b && abs( checkheight a - checkheight  b) <=1
 
-div :: Nat -> Nat -> Nat
-div Zero _ = Zero
-div m n = 
+checkheight :: Tree a -> Int
+checkheight (Leaf _) = 0
+checkheight (Node a x y) = max(checkheight x) (checkheight y) + 1 --https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
+
+
+sub' :: Nat -> Nat -> Nat
+sub' m Zero = m
+sub' Zero n = error ("No Natrual Number result maybe negative")
+sub' (Succ m) (Succ n) = sub m n
+
+division :: Nat -> Nat -> Nat
+division _ Zero = Zero
+division x y = sub x y
