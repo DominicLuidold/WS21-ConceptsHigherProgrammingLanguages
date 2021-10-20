@@ -9,7 +9,7 @@ nat2int :: Nat -> Int
 nat2int Zero     = 0
 nat2int (Succ n) = 1 + nat2int n
 
-data Tree a = Leaf a | Node  (Tree a) a (Tree a) deriving Show
+data Tree  a = Leaf a | Node  (Tree a) a (Tree a) deriving Show
 
 add :: Nat -> Nat -> Nat
 add Zero     n = n
@@ -55,6 +55,7 @@ division _ Zero = Zero
 division x y = sub x y
 
 -- Binary Tree
+-- Example  Node (Node (Leaf 1) 3 (Leaf 4)) 5 (Node (Leaf 6) 7 (Leaf 9))
 countLeafs :: Tree a -> Int
 countLeafs (Leaf _) = 1
 countLeafs (Node l _ r) = countLeafs l + countLeafs r
@@ -62,4 +63,17 @@ countLeafs (Node l _ r) = countLeafs l + countLeafs r
 treeDepth  :: Tree a -> Int -- Tiefe startet mit 0
 treeDepth  (Leaf _) = 0
 treeDepth  (Node l _ r) = max(treeDepth  l) (treeDepth  r) + 1 --https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
--- Node (Node (Leaf 1) 3 (Leaf 4)) 5 (Node (Leaf 6) 7 (Leaf 9))
+
+countNodes :: Tree a -> Int
+countNodes (Leaf _) = 0
+countNodes (Node l _ r) = countNodes l + countNodes r + 1
+
+
+
+getVal :: Ord a => Tree a -> a
+getVal (Leaf v)   =  v
+getVal (Node _ v _)   = v
+
+isSorted :: Ord a => Tree a -> Bool
+isSorted (Leaf _)   = True
+isSorted (Node l v r) = (getVal l <= v) &&  (v < getVal r) && isSorted l && isSorted r
