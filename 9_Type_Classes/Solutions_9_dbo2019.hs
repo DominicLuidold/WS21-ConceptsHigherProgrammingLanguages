@@ -1,3 +1,4 @@
+
 data Tree a = Leaf a 
             | Branch  (Tree a) (Tree a) deriving Show
 
@@ -13,12 +14,29 @@ instance Functor ZipList where
 
 instance Applicative ZipList where
   -- pure :: a -> ZipList a
-  pure x = Z [x]
+  pure x = Z (repeat x)
   
   -- <*> :: ZipList (a -> b) -> ZipList a -> ZipList b
-  (Z gs) <*> (Z xs) = Z (gs xs)
+  (Z gs) <*> (Z xs) = Z (zipWith ($) gs xs)
 
 
 
-test:: [a -> b] -> [a] -> [b]
-test f x = f x
+-- Monoid under addition.
+newtype Sum a = Sum a
+
+
+instance Num a => Monoid (Sum a) where
+    mempty = Sum 0
+    mappend (Sum x) (Sum y) = Sum (x + y)
+
+
+
+-- newtype All a = All a
+
+-- instance  where
+-- instance Foldable Tree where
+-- foldMap _ (Leaf a)     = mempty
+--   foldMap g (Branch l  r) = foldMap g l `mappend` foldMap g r
+  
+--   foldr g a (Leaf b)         = a
+--   foldr g a (Branch l  r) = foldr g (foldr g a r) l

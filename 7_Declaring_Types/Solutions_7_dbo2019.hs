@@ -80,4 +80,4 @@ getVal (Node _ v _)   = v
 
 isSorted :: Ord a => Tree a -> Bool
 isSorted (Leaf _)   = True
-isSorted (Node l v r) = (getVal l <= v) &&  (v < getVal r) && isSorted l && isSorted r
+isSorted (Node l v r) = (getVal l <= v) &&  (getVal r > v) && isSorted l && isSorted r
