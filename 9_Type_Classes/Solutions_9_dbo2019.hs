@@ -67,3 +67,8 @@ instance Foldable Tree where
   foldr g a (Leaf b)         = a
   foldr g a (Branch l  r) = foldr g (foldr g a r) l
 
+-- TODO Foldable
+treeDepth :: Tree a -> Int
+treeDepth (Leaf _) = 0
+treeDepth (Branch leftSubtree rightSubtree) = 
+ 1 + max (treeDepth leftSubtree) (treeDepth rightSubtree)
