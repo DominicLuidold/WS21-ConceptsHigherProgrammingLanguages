@@ -1,11 +1,6 @@
 import GHC.Generics
 
-data Tree a = Leaf a 
-            | Branch  (Tree a) (Tree a) deriving Show
 
-instance Functor Tree where
-    fmap f (Leaf x)  = Leaf (f x)
-    fmap f (Branch  l r) = Branch (fmap f l) (fmap f r)     
 
 newtype ZipList a = Z [a] deriving Show
 
@@ -49,4 +44,26 @@ instance Monoid Any where
         Any x `mappend` Any y = Any (x || y)
 
 
+-- instance Semigroup a => Monoid (Maybe a) where
+--   Nothing <> a = a
+--   a <> Nothing = a
+--   Just x <> Just y = Just $ x <> y
+
+-- instance Semigroup a => Monoid (Maybe a) where
+--   mappend = (<>)
+--   mempty = Nothing
+
+data Tree a = Leaf a 
+            | Branch  (Tree a) (Tree a) deriving Show
+
+instance Functor Tree where
+    fmap f (Leaf x)  = Leaf (f x)
+    fmap f (Branch  l r) = Branch (fmap f l) (fmap f r)
+
+instance Foldable Tree where
+  foldMap f (Leaf a)     = f a
+  foldMap g (Branch l  r) = foldMap g l `mappend` foldMap g r
+
+  foldr g a (Leaf b)         = a
+  foldr g a (Branch l  r) = foldr g (foldr g a r) l
 
