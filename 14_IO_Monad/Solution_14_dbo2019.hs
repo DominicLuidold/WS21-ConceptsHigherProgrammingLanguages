@@ -18,3 +18,7 @@ endboard = all (== 0)
 -- Regeln von https://de.wikipedia.org/wiki/Nim-Spiel
 isValid ::  [Int] -> Int -> Int -> Bool
 isValid b r count = b  !! (r-1) >= count
+
+gameMove :: [Int] -> Int -> Int -> [Int]
+gameMove board row num = [update r n | (r,n) <- zip [1..] board]
+   where update r n = if r == row then n-num else n
