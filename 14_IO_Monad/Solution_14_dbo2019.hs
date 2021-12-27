@@ -51,10 +51,8 @@ charToString = (:[])
 -- the next turn must be called
 isOver :: [Int] -> Int -> IO()
 isOver board player = do if board == [0, 0, 0, 0, 0]
-                           then putStrLn ("Congratulations, Player " ++ (show player)
-                                         ++ ", you win!")
-                           else do putStrLn ""
-                                   putStrLn (showboard board)
+                           then putStrLn ("Player " ++ (show player) ++ ", you win!")
+                           else do putStrLn ("\n" ++ (showboard board))
                                    play board player
 
 handleInput:: String -> (Int,Int)
