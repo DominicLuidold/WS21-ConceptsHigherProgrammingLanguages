@@ -1,34 +1,4 @@
-import Text.XHtml (black)
-import Distribution.Simple.Utils (xargs)
 -- 4 - Defining Functions
-
--- 4.6.1 - Pattern matching over '||'
-(||) :: Bool -> Bool -> Bool
-False || False = False
-False || True = True
-True || False = True
-True || True = True
-
-(|||) :: Bool -> Bool -> Bool
-False ||| False = False 
-_ ||| _ = True -- "_" = wildcard
-
-(||||) :: Bool -> Bool -> Bool
-False |||| x = x
-True |||| _ = True
-
--- 4.6.2 - Redefining '&&'
-(&&&) :: Bool -> Bool -> Bool
-(&&&) a b = if a == False then False else
-                if b == False then False else True
-
--- 4.6.3 Redefining &&
-(&&&&) :: Bool -> Bool -> Bool 
-(&&&&) a b = if a == False then False else b
-
--- 4.6.4 Currying
-mult :: Int -> Int -> Int -> Int 
-mult = \x -> (\y -> (\z -> x * y * z))
 
 -- 4.6.5 Implementing 'safetail'
 safetailConditional :: [a] -> [a]
@@ -97,7 +67,11 @@ compress [x] = [x]
 compress (x:xs:xss) = if x == xs then compress (xs:xss) else x:compress (xs:xss)
 
 -- 4.6.11 Packing
--- ??
+pack :: Eq a => [a] -> [[a]]
+pack [] = []
+pack (x:xs) = let (first,rest) = span (==x) xs -- https://hackage.haskell.org/package/base-4.15.0.0/docs/Prelude.html#v:span
+               in (x:first) : pack rest
 
 -- 4.6.12 Run-Length Encoding
--- ??
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map (\x -> (length x,head x)) . pack
