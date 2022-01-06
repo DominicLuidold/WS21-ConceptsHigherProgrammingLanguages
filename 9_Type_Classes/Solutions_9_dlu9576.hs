@@ -21,7 +21,6 @@ instance Ord Nat where
     (Succ _) <= Zero = False
     (Succ a) <= (Succ b) = a <= b
 
--- TODO: Solution without int2nat/nat2int
 instance Enum Nat where
     toEnum 0 = Zero
     toEnum x = int2nat x
