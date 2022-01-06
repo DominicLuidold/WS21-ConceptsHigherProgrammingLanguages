@@ -33,8 +33,24 @@ multbetter  _ Zero = Zero
 multbetter m (Succ n) = add m  (multbetter m  n)
 
 -- 7.8.3 Implementing folde
+-- Define a suitable function folde, a fold for expressions, and give a few examples of its use. 
+-- The idea is that you provide a function for each of the possible data values of an Expr, 
+-- that is a function for Val, Add, Mult, which takes the arguments and produces the result, 
+-- without hard-coding the actual arithmetic operation. folde can then be used in the following way:
+-- eval = folde id (+) (*). Think careful about the type of folde: 
+-- it should be as generic as possible and allow for transforming Expr not only into 
+-- Int but if necessary also into a String such as in folde show (\e1 e2 -> e1 ++ " + " ++ e2) (\e1 e2 -> e1 ++ " * " ++ e2).
+-- Source: https://github.com/pankajgodbole/hutton/blob/master/exercises.hs
+data Expr = Val Int
+          | Add Expr Expr
+          | Mul Expr Expr
+folde                 :: (Int -> a) -> (a -> a -> a) -> Expr -> a
+folde f g (Val n)     =  f n
+folde f g (Add e1 e2) =  g (folde f g e1) (folde f g e2)
 
--- TODO
+evaluate             :: Expr -> Int
+evaluate (Val n)     =  n
+evaluate (Add e1 e2) =  folde toEnum (+) (Add e1 e2)
 
 -- 7.8.4 Complete Tree
 checkcomplete :: Tree a -> Bool 
