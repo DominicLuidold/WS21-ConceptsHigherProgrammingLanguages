@@ -1,5 +1,7 @@
+{-# LANGUAGE FlexibleContexts #-}
 import Data.Foldable
 import Data.Binary.Get (label)
+import Control.Monad.State
 -- 12 Monads Defined
 
 -- 12.12.1 CPS
@@ -116,3 +118,16 @@ labelTree' (Node l a r) = S (\labelNo -> ((a, labelNo + 1), labelNo + 1)) -->
                             \a' -> labelTree' l -->
                                 \l' -> labelTree' r -->
                                     \r' -> S (\labelNo -> (Node l' a' r', labelNo))
+
+
+labeltree :: MonadState Int m => Tree a -> m (Tree (a, Int))
+labeltree (Node l x r) = do 
+                          l' <- labeltree l
+                          r' <- labeltree r
+                          n <- get
+                          modify (+1)
+                          return (Node l' (x,n) r')
+labeltree (Leaf a) = do
+    n <- get
+    modify (+1)
+    return (Leaf (a,n))
