@@ -1,5 +1,6 @@
 import Test.QuickCheck
 import Graphics.Win32 (FLOAT)
+import Data.Int (Int)
 -- 16.6.1 Checking msort (5 Points)
 
 -- 5 Recursive Functions
@@ -50,3 +51,11 @@ prop_isassociativeFloat a b c = a + (b + c) == (a + b) + c
 
 prop_iscommutativeFloat :: Float -> Float -> Float -> Bool
 prop_iscommutativeFloat a b c = a + (b + c) == (a + b) + c
+
+
+dice :: Gen Int
+dice =
+  choose (1, 6)
+
+sumDice :: Gen Int
+sumDice = (+) <$> dice <*> dice
