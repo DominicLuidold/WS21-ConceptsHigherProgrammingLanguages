@@ -1,0 +1,170 @@
+\documentclass[a4paper,12pt,twoside]{scrreprt}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}    
+\usepackage{graphicx}       
+\usepackage[english]{babel} 
+\usepackage{csquotes}       % When using babel or polyglossia with biblatex, loading csquotes is recommended to ensure that quoted texts are typeset according to the rules of your main language.
+\usepackage{acronym} 
+\usepackage{eurosym}  
+\usepackage[linktocpage=true]{hyperref}
+\usepackage[bindingoffset=8mm]{geometry}
+\usepackage{caption} 
+\usepackage{makecell} 
+\usepackage{float}
+\usepackage{minted} % Code Highlighting/Import
+
+\captionsetup{format=hang, justification=raggedright}
+
+\usepackage[style=alphabetic,citestyle=alphabetic,backend=biber]{biblatex}   % Literaturverweise
+%\usepackage[style=numeric,citestyle=numeric,backend=biber]{biblatex}
+% biblatex comes with a variety of built-in bibliography/citation style families (numeric, alphabetic, authoryear, authortitle, verbose), and there's a growing number of custom styles:
+% https://de.sharelatex.com/learn/Biblatex_citation_styles
+% https://de.sharelatex.com/learn/Biblatex_bibliography_styles
+\addbibresource{Sourcesdbo2019.bib}    % Zotero-Beispiele.bib ist die verwendete Bibtex-Datei 
+% Anstatt die Bibtex-Datei selber zu erstellen, kann sie z. B. aus einer Zotero-Sammlung zu BibTeX exportiert werden.
+
+
+%% Einstellungen:
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}   % Tiefe der Gliederung im In haltsverzeichnis
+
+
+
+\begin{document}
+
+
+
+
+% Titelblatt:
+% \newpage\mbox{}\newpage
+\cleardoublepage   % force output to a right page
+\thispagestyle{empty}
+\begin{titlepage}
+  \begin{flushright}
+  \includegraphics[width=0.9\linewidth]{Logo-A3}
+  \end{flushright}
+  \begin{flushleft}
+  \section*{Written Elaboration}
+  \subsection*{Translate the concepts learned into an Object Oriented Programming language (Java).}
+
+
+  \vspace{1cm}
+  Fachhochschule Vorarlberg\newline
+  Computer Science – Software and Information Engineering
+  
+  \vspace{1cm}
+  Submitted by\newline
+  Dominic Luidold\newline
+  Dominik Böckle\newline
+  Dornbirn, 12, 2021
+  \end{flushleft}
+\end{titlepage}
+
+
+
+
+% Inhaltsverzeichnis:
+\cleardoublepage   % force output to a right page
+\tableofcontents
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+
+% evtl. Abkürzungsverzeichnis:
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of abbreviations}  % evtl. ersetzen durch \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\chapter*{List of abbreviations} 
+\begin{acronym}
+ \acro{OOP}{Object-oriented programming}
+ \acro{ADT}{Algebraic Data Types}
+\end{acronym}
+
+\clearpage
+
+
+%% Die Kapitelstruktur ist mit der betreuungsperson abzustimmen!
+
+\chapter{Introduction}
+First, the different concepts covered in this course are implemented with the \ac{OOP}-Language Java and a short explanation is given. Then a StateMonad is implemented and the function is used with a short example.
+
+\chapter{Implementation of the various concepts}
+In this chapter, the different concepts are explained again and then brought closer to the readers with a program example.
+\section{Immutable Data}
+Immutable Data is a principle that states that once data is created, it cannot be subsequently changed. In general, data and objects should be Mutable only when there is a valid reason. 
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ImmutablePair.java}
+    \caption[Example for Immutabale data]{Example for Immutabale data.}
+    \label{code:immutable}
+\end{listing}
+The \emph{Sourcecode \ref{code:immutable}} shows how to make immutable in a variable like x, this is done using the keyword final. Additionally you can't set the variables from outside, because there are no set methods, but this variant has the disadvantage that you could write a class which extends the ImmutablePair and is still mutable, to prevent this you have to make the class immutable with the keyword final (public final class ImmutablePair).
+Furthermore there are also possibilities to make lists unmodifiable with the function Collections.unmodifiableList(mutablelist); but since this is self-explanatory it is not explained in detail in the sample code.
+\section{Type Variables}
+For the area of type variables there is the possibility of generic programming in Java. Here one can restrict like with Haskell which types are permitted. This restriction can be made in Java by interfaces or classes and write for example <? extends Integer>.
+\section{Higher-Order Functions}
+A higher order function is a function that takes a function as an argument or returns a function. This is possible since Java 8. \emph{Sourcecode \ref{code:higherordered}} shows an example code where the method camelize turns the first characters of a string into a capital letter. In this method you can also see the use of lambdas which will be explained in more detail in one of the following sections
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/HigherOrderFunctions.java}
+    \caption[Example for Higher Order Function]{Example for Higher Order Function}
+    \label{code:higherordered}
+\end{listing}
+\section{Lambda Expressions}
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Lambda.java}
+    \caption[Example for Lambda]{Example for Lambda Expressions.}
+    \label{code:Lambda}
+\end{listing}
+With the method listLambdas in \emph{Sourcecode \ref{code:Lambda}} you can see how with a lambda function the values of the list are increased by 1. In the past, anonymous classes often had to be used instead of lambdas in Java, but this has been curbed somewhat with Java 8 and the lambdas and usually makes the code more readable.
+\section{Currying}
+Currying is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \emph{Sourcecode \ref{code:Currying}} is inspired by \cite{Robertson_currying_2018} in which multiplication was done by currying. This is emulated with the function multcurry where the multiplications can be strung together.
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Currying.java}
+    \caption[Example for Currying]{Example for multiplication with Currying.}
+    \label{code:Currying}
+\end{listing}
+\section{Function Composition and Streaming}
+\subsection{Function Composition}
+Function composition is the combination of two functions into a new function. You simply take the output of the first function and use it as input for the second function. To be able to demonstrate this in \emph{Sourcecode \ref{code:Compose}} the functions doubleing and remove1 were expressed by means of Lambda and used for an example. Here it is remarkable that with .compose(<function>) the function is put in front and with andThen(<function>) the function is put after.
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/FunctionComposition.java}
+    \caption[Example for Function Composition]{Example for Function Composition and that order can be Important.}
+    \label{code:Compose}
+\end{listing}
+\subsection{Streaming}
+A stream represents a sequence of objects that can be accessed in sequential order.
+One of the better known streams in Java is probably the filestream this is used in \emph{sourcecode \ref{code:Streaming}}.
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Streaming.java}
+    \caption[Example for Streaming]{Example for Streaming.}
+    \label{code:Streaming}
+\end{listing}
+\section{Algebraic Data Types}
+An \ac{ADT} consists of several variants or flavors, similar to a Java enum, but the different flavors can have different properties or methods.
+
+To summarize again what we expect from an \ac{ADT}:
+The expressions have different numbers and types of properties and methods.
+At compile time it is checked that all expressions are also considered.
+
+Unfortunately, Java does not support ADT from scratch, so we have to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the design patterns Visitor and Sealed Class are helpful. In Java 15 the sealed class should be automatically integrated but in Sorce code it was still implemented manually without the sealed keyword.
+
+\emph{Sourcecode \ref{code:ADT}} shows a Java implementation of the Alive or Date State from the lecture notes \footnote{ lecture notes: https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1 visited on 2022/01/06}.
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ADT.java}
+    \caption[Example for a \ac{ADT}]{Dead or Alive Example to demonstrate \ac{ADT}.}
+    \label{code:ADT}
+\end{listing}
+
+\section{Pure and Impure Side Effects}
+% Literaturverzeichnis:
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliographie}
+\printbibliography
+
+
+
+
+\end{document}
