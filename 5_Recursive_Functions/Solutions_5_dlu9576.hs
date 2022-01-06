@@ -30,7 +30,7 @@ mergeSort :: Ord a => [a] -> [a] -> [a]
 mergeSort x [] = x
 mergeSort [] y = y
 mergeSort (x:xs) (y:ys) | x <= y    = x:mergeSort xs (y:ys)
-                        | otherwise = y:mergeSort (x:xs) ys
+                        | otherwise = y:mergeSort (x:xs) ys
 
 msort :: Ord a => [a] -> [a]
 msort [] = []
