@@ -26,4 +26,4 @@ has :: (Eq a) => KVS a b -> a -> Bool
 has Empty _ = False 
 has (Elem k _ s) key
                     | k == key  = True 
-                    | otherwise = has s key
+                    | otherwise = has s key
