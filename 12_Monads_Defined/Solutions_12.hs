@@ -119,15 +119,15 @@ labelTree' (Node l a r) = S (\labelNo -> ((a, labelNo + 1), labelNo + 1)) -->
                                 \l' -> labelTree' r -->
                                     \r' -> S (\labelNo -> (Node l' a' r', labelNo))
 
-
-labeltree :: MonadState Int m => Tree a -> m (Tree (a, Int))
-labeltree (Node l x r) = do 
-                          l' <- labeltree l
-                          r' <- labeltree r
+-- Implement labelTree with the State Monad for which you need to import Control.Monad.State.
+labelTree'' :: MonadState Int m => Tree a -> m (Tree (a, Int))
+labelTree'' (Node l x r) = do 
+                          l' <- labelTree'' l
+                          r' <- labelTree'' r
                           n <- get
                           modify (+1)
                           return (Node l' (x,n) r')
-labeltree (Leaf a) = do
+labelTree'' (Leaf a) = do
     n <- get
     modify (+1)
     return (Leaf (a,n))
