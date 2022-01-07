@@ -15,6 +15,8 @@
 \usepackage{minted} % Code Highlighting/Import
 
 \captionsetup{format=hang, justification=raggedright}
+\renewcommand{\listingscaption}{Sourcecode}
+\renewcommand\listoflistingscaption{Sourcecode}
 
 \usepackage[style=alphabetic,citestyle=alphabetic,backend=biber]{biblatex}   % Literaturverweise
 %\usepackage[style=numeric,citestyle=numeric,backend=biber]{biblatex}
@@ -102,6 +104,8 @@ Immutable Data is a principle that states that once data is created, it cannot b
 \end{listing}
 The \emph{Sourcecode \ref{code:immutable}} shows how to make immutable in a variable like x, this is done using the keyword final. Additionally you can't set the variables from outside, because there are no set methods, but this variant has the disadvantage that you could write a class which extends the ImmutablePair and is still mutable, to prevent this you have to make the class immutable with the keyword final (public final class ImmutablePair).
 Furthermore there are also possibilities to make lists unmodifiable with the function Collections.unmodifiableList(mutablelist); but since this is self-explanatory it is not explained in detail in the sample code.
+\clearpage
+
 \section{Type Variables}
 For the area of type variables there is the possibility of generic programming in Java. Here one can restrict like with Haskell which types are permitted. This restriction can be made in Java by interfaces or classes and write for example <? extends Integer>.
 \section{Higher-Order Functions}
@@ -111,6 +115,8 @@ A higher order function is a function that takes a function as an argument or re
     \caption[Example for Higher Order Function]{Example for Higher Order Function}
     \label{code:higherordered}
 \end{listing}
+\clearpage
+
 \section{Lambda Expressions}
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Lambda.java}
@@ -118,6 +124,7 @@ A higher order function is a function that takes a function as an argument or re
     \label{code:Lambda}
 \end{listing}
 With the method listLambdas in \emph{Sourcecode \ref{code:Lambda}} you can see how with a lambda function the values of the list are increased by 1. In the past, anonymous classes often had to be used instead of lambdas in Java, but this has been curbed somewhat with Java 8 and the lambdas and usually makes the code more readable.
+\clearpage
 \section{Currying}
 Currying is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \emph{Sourcecode \ref{code:Currying}} is inspired by \cite{Robertson_currying_2018} in which multiplication was done by currying. This is emulated with the function multcurry where the multiplications can be strung together.
 \begin{listing}[ht]
@@ -125,6 +132,8 @@ Currying is the conversion of a function with multiple arguments into a sequence
     \caption[Example for Currying]{Example for multiplication with Currying.}
     \label{code:Currying}
 \end{listing}
+\clearpage
+
 \section{Function Composition and Streaming}
 \subsection{Function Composition}
 Function composition is the combination of two functions into a new function. You simply take the output of the first function and use it as input for the second function. To be able to demonstrate this in \emph{Sourcecode \ref{code:Compose}} the functions doubleing and remove1 were expressed by means of Lambda and used for an example. Here it is remarkable that with .compose(<function>) the function is put in front and with andThen(<function>) the function is put after.
@@ -133,14 +142,17 @@ Function composition is the combination of two functions into a new function. Yo
     \caption[Example for Function Composition]{Example for Function Composition and that order can be Important.}
     \label{code:Compose}
 \end{listing}
+\clearpage
+
 \subsection{Streaming}
 A stream represents a sequence of objects that can be accessed in sequential order.
-One of the better known streams in Java is probably the filestream this is used in \emph{sourcecode \ref{code:Streaming}}.
+One of the better known streams in Java is probably the filestream this is used in \emph{Sourcecode \ref{code:Streaming}}.
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Streaming.java}
     \caption[Example for Streaming]{Example for Streaming.}
     \label{code:Streaming}
 \end{listing}
+\clearpage
 \section{Algebraic Data Types}
 An \ac{ADT} consists of several variants or flavors, similar to a Java enum, but the different flavors can have different properties or methods.
 
@@ -156,8 +168,19 @@ Unfortunately, Java does not support ADT from scratch, so we have to implement t
     \caption[Example for a \ac{ADT}]{Dead or Alive Example to demonstrate \ac{ADT}.}
     \label{code:ADT}
 \end{listing}
+\clearpage
+
 
 \section{Pure and Impure Side Effects}
+Pure: Side effects are effects which are influenced by the Pure calculation and are always deterministic because they do not communicate with the outside world. \emph{Sourcecode \ref{code:Effects}} shows the change of the "State" in the method Pure.
+\newline
+Impure: are all effects which interact with the outside world this is declared in \emph{Sourcecode \ref{code:Effects}} with the method Impure which waits for a user action
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/SideEffects.java}
+    \caption[Example for Side Effects]{Example for Side Effects.}
+    \label{code:Effects}
+\end{listing}
+\clearpage
 % Literaturverzeichnis:
 \clearpage
 \phantomsection

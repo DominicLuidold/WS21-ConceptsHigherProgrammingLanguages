@@ -59,3 +59,4 @@ dice =
 
 sumDice :: Gen Int
 sumDice = (+) <$> dice <*> dice
+
