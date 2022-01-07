@@ -14,4 +14,4 @@ primesConcurrent (x, y) = do
 -- TODO - Calc primes
 -- TODO - Do what exercise actually wants from us
 primesThread :: IORef Integer -> Integer -> IO()
-primesThread ref n = atomicModifyIORef ref (\acc -> (acc * n, ()))
+primesThread ref n = atomicModifyIORef ref (\acc -> (acc * n, ())) -- Currently calcs fibonacci

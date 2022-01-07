@@ -1,9 +1,7 @@
 import Test.QuickCheck
-import Graphics.Win32 (FLOAT)
-import Data.Int (Int)
--- 16.6.1 Checking msort (5 Points)
+-- 16 Property-Based Testing
 
--- 5 Recursive Functions
+-- 16.6.1 Checking msort (5 Points)
 
 -- 5.5.2 Merge Sort
 mergeSort :: Ord a => [a] -> [a] -> [a]
@@ -36,27 +34,37 @@ prop_MyIsSorted :: [Int] -> Bool
 prop_MyIsSorted x = myIsSorted (msort x)
 -- Source: https://jesper.sikanda.be/posts/quickcheck-intro.html
 -- 16.6.2 Verify algebraic laws of addition (5 Points)
-prop_isassociative :: Int -> Int -> Int -> Bool
-prop_isassociative a b c = a + (b + c) == (a + b) + c
+prop_isAssociative :: Int -> Int -> Int -> Bool
+prop_isAssociative a b c = a + (b + c) == (a + b) + c
 
-prop_iscommutative  :: Int -> Int  -> Bool --https://studyflix.de/mathematik/kommutativgesetz-2733
-prop_iscommutative  a b  = a + b  == b + a
+prop_isCommutative :: Int -> Int  -> Bool --https://studyflix.de/mathematik/kommutativgesetz-2733
+prop_isCommutative a b = a + b == b + a
 
 -- In computer science, unlike mathematics, floating point additions are usually not associative or commutative. This is also the case with haskell.
 -- See:
 -- https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 -- https://en.wikipedia.org/wiki/Associative_property#:~:text=In%20mathematics%2C%20addition%20and%20multiplication,sized%20values%20are%20joined%20together.
-prop_isassociativeFloat :: Float -> Float -> Float -> Bool
-prop_isassociativeFloat a b c = a + (b + c) == (a + b) + c
+prop_isAssociativeFloat :: Float -> Float -> Float -> Bool
+prop_isAssociativeFloat a b c = a + (b + c) == (a + b) + c
 
-prop_iscommutativeFloat :: Float -> Float -> Float -> Bool
-prop_iscommutativeFloat a b c = a + (b + c) == (a + b) + c
+prop_isCommutativeFloat :: Float -> Float -> Float -> Bool
+prop_isCommutativeFloat a b c = a + (b + c) == (a + b) + c
 
+-- 16.6.3 Dice
 
 dice :: Gen Int
 dice =
-  choose (1, 6)
+    choose (1, 6)
 
-sumDice :: Gen Int
-sumDice = (+) <$> dice <*> dice
+sum_dice :: Gen Int
+sum_dice = do
+    d1 <- dice
+    d2 <- dice
+    return (d1 + d2)
 
+prop_sumDice :: Gen Property -> Bool
+prop_sumDice = do 
+  d1 <- choose (1, 6)
+  d2 <- choose (1, 6)
+  sum <- (+) <$> d1 <*> d2
+  return sum === 7
