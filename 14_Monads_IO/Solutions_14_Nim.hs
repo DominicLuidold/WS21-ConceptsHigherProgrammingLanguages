@@ -1,17 +1,16 @@
--- Nim (20 Points)
+import Data.Char
+import Text.XHtml (input)
+-- 14 Monads In Use: IO
+-- 14 .7.3 Nim
+
 -- Implement the game of Nim in Haskell, where the rules of the game are as follows:
 
 -- The initial board comprises five rows of stars.
 
 --Inspired By https://github.com/rst0git/Nim-Game-Haskell/blob/master/nim.hs
 -- haskel book https://staff.emu.edu.tr/zekibayram/Documents/courses/CMPE462/Haskell%20code/nim.hs.txt
-import Data.Char
-import Text.XHtml (input)
-
-
 startBoard :: [Int]
 startBoard = [5,4,3,2,1]
-
 
 endboard :: [Int] -> Bool
 endboard = all (== 0)
