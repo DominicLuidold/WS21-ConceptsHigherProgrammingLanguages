@@ -1,73 +1,73 @@
 \documentclass[a4paper,12pt,twoside]{scrreprt}
+% Autor der Vorlage: Klaus Rheinberger, FH Vorarlberg, 2017-02-20
 
+% Pakete:
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}    
-\usepackage{graphicx}       
+\usepackage[T1]{fontenc} % Silbentrennung bei Sonderzeichen
+\usepackage{graphicx} % Bilder einbinden
+\usepackage{wrapfig} % Bilder positionieren
 \usepackage[english]{babel} 
-\usepackage{csquotes}       % When using babel or polyglossia with biblatex, loading csquotes is recommended to ensure that quoted texts are typeset according to the rules of your main language.
-\usepackage{acronym} 
-\usepackage{eurosym}  
-\usepackage[linktocpage=true]{hyperref}
-\usepackage[bindingoffset=8mm]{geometry}
-\usepackage{caption} 
-\usepackage{makecell} 
-\usepackage{float}
 \usepackage{minted} % Code Highlighting/Import
+\usepackage{csquotes} % Anführungszeichen und Zitieren
+\usepackage[bindingoffset=8mm]{geometry} % Bindeverlust von 8mm einbeziehen
+\usepackage{caption} % Abbildungslegenden
+\usepackage{setspace} % Zeilenabstand
+\usepackage[style=alphabetic,citestyle=alphabetic,backend=biber]{biblatex} % Literaturverweise
+\usepackage[
+    linktocpage=true,
+    pdfauthor={Dominik Böckle & Dominic Luidold},
+    pdftitle={Translating the concepts of Haskell into the object-oriented programming language Java}
+]{hyperref} % Links
+\usepackage{acronym} 
+\usepackage{eurosym}
 
+% Einstellungen:
 \captionsetup{format=hang, justification=raggedright}
-\renewcommand{\listingscaption}{Sourcecode}
-\renewcommand\listoflistingscaption{Sourcecode}
-
-\usepackage[style=alphabetic,citestyle=alphabetic,backend=biber]{biblatex}   % Literaturverweise
-%\usepackage[style=numeric,citestyle=numeric,backend=biber]{biblatex}
-% biblatex comes with a variety of built-in bibliography/citation style families (numeric, alphabetic, authoryear, authortitle, verbose), and there's a growing number of custom styles:
-% https://de.sharelatex.com/learn/Biblatex_citation_styles
-% https://de.sharelatex.com/learn/Biblatex_bibliography_styles
-\addbibresource{Sourcesdbo2019.bib}    % Zotero-Beispiele.bib ist die verwendete Bibtex-Datei 
-% Anstatt die Bibtex-Datei selber zu erstellen, kann sie z. B. aus einer Zotero-Sammlung zu BibTeX exportiert werden.
-
-
-%% Einstellungen:
+\addbibresource{Sourcesdbo2019.bib}
 \setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}   % Tiefe der Gliederung im In haltsverzeichnis
+\renewcommand{\listingscaption}{Sourcecode}
+ \renewcommand\listoflistingscaption{Sourcecode}
 
-
-
+% Dokumentenbeginn
 \begin{document}
-
-
-
+\onehalfspacing % Zeilenabstand 1,5
 
 % Titelblatt:
 % \newpage\mbox{}\newpage
-\cleardoublepage   % force output to a right page
+\pagenumbering{Roman}
+\cleardoublepage % force output to a right page
 \thispagestyle{empty}
 \begin{titlepage}
-  \begin{flushright}
-  \includegraphics[width=0.9\linewidth]{Logo-A3}
-  \end{flushright}
-  \begin{flushleft}
-  \section*{Written Elaboration}
-  \subsection*{Translate the concepts learned into an Object Oriented Programming language (Java).}
+    \begin{flushright}
+    \includegraphics[width=0.4\linewidth]{Logo-A3.jpg}
+    \end{flushright}
+    \begin{flushleft}
+    \vspace{0.5cm}
+    \section*{Translating the concepts of Haskell into the object-oriented programming language Java}
+    \subsection*{Written Elaboration}
 
+    \vspace{4cm}
+    Vorarlberg University of Applied Sciences\newline
+    Computer Science MSc
 
-  \vspace{1cm}
-  Fachhochschule Vorarlberg\newline
-  Computer Science – Software and Information Engineering
-  
-  \vspace{1cm}
-  Submitted by\newline
-  Dominic Luidold\newline
-  Dominik Böckle\newline
-  Dornbirn, 12, 2021
-  \end{flushleft}
+    \vspace{0.5cm}
+
+    Supervised by\newline
+    Jonathan Thaler, Ph.D
+
+    \vspace{0.5cm}
+
+    Submitted by\newline
+    Dominik Böckle,\newline
+    Dominic Luidold\newline\newline
+    Dornbirn, January 2022
+    \end{flushleft}
 \end{titlepage}
 
-
-
-
 % Inhaltsverzeichnis:
-\cleardoublepage   % force output to a right page
+\cleardoublepage % force output to a right page
+\setcounter{tocdepth}{2}
+\pdfbookmark{\contentsname}{toc}
 \tableofcontents
 
 \clearpage
@@ -75,23 +75,22 @@
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 
-% evtl. Abkürzungsverzeichnis:
+% Abkürzungsverzeichnis:
 \clearpage
 \phantomsection
-\addcontentsline{toc}{chapter}{List of abbreviations}  % evtl. ersetzen durch \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
-\chapter*{List of abbreviations} 
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\chapter*{List of Abbreviations}
 \begin{acronym}
- \acro{OOP}{Object-oriented programming}
- \acro{ADT}{Algebraic Data Types}
+  \acro{ADT}{Algebraic Data Types}
+  \acro{OOP}{Object-oriented programming}
 \end{acronym}
 
-\clearpage
-
-
-%% Die Kapitelstruktur ist mit der betreuungsperson abzustimmen!
-
+\cleardoublepage
+\pagenumbering{arabic}
 \chapter{Introduction}
-First, the different concepts covered in this course are implemented with the \ac{OOP}-Language Java and a short explanation is given. Then a StateMonad is implemented and the function is used with a short example.
+This written elaboration contains the different concepts covered in the lecture \enquote{Concepts of Higher Programming Languages} implemented with the \ac{OOP} language Java. Each implementation is complemented by a short explanation.
+
+Additionally, a \texttt{StateMonat} is implemented and an example is provided to demonstrate using the monad implementation.
 
 \chapter{Implementation of the various concepts}
 In this chapter, the different concepts are explained again and then brought closer to the readers with a program example.
@@ -111,7 +110,7 @@ For the area of type variables there is the possibility of generic programming i
 \section{Higher-Order Functions}
 A higher order function is a function that takes a function as an argument or returns a function. This is possible since Java 8. \emph{Sourcecode \ref{code:higherordered}} shows an example code where the method camelize turns the first characters of a string into a capital letter. In this method you can also see the use of lambdas which will be explained in more detail in one of the following sections
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/HigherOrderFunctions.java}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/HigherOrderFunctions.java}
     \caption[Example for Higher Order Function]{Example for Higher Order Function}
     \label{code:higherordered}
 \end{listing}
@@ -138,7 +137,7 @@ Currying is the conversion of a function with multiple arguments into a sequence
 \subsection{Function Composition}
 Function composition is the combination of two functions into a new function. You simply take the output of the first function and use it as input for the second function. To be able to demonstrate this in \emph{Sourcecode \ref{code:Compose}} the functions doubleing and remove1 were expressed by means of Lambda and used for an example. Here it is remarkable that with .compose(<function>) the function is put in front and with andThen(<function>) the function is put after.
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/FunctionComposition.java}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/FunctionComposition.java}
     \caption[Example for Function Composition]{Example for Function Composition and that order can be Important.}
     \label{code:Compose}
 \end{listing}
@@ -181,13 +180,11 @@ Impure: are all effects which interact with the outside world this is declared i
     \label{code:Effects}
 \end{listing}
 \clearpage
+
 % Literaturverzeichnis:
 \clearpage
 \phantomsection
-\addcontentsline{toc}{chapter}{Bibliographie}
+\addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
-
-
-
 
 \end{document}
