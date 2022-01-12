@@ -1,14 +1,23 @@
 import java.util.function.Function;
+import java.util.function.Predicate;
 
-// https://functionalprogramming.medium.com/function-composition-in-java-beaf39426f52
-// Funktionale Komposition bezieht sich auf eine Technik, bei der mehrere Funktionen zu einer einzigen Funktion kombiniert werden. Wir können Lambda-Ausdrücke miteinander kombinieren. Java bietet eine eingebaute Unterstützung durch die Klassen Predicate und Function. Das folgende Beispiel zeigt, wie man zwei Funktionen mit Hilfe des Predicate-Ansatzes kombinieren kann.
+/**
+ * Functional composition refers to a technique of combining multiple functions into a single function.
+ * One can combine lambda expressions, Java provides built-in support for this through the {@link Predicate} and
+ * {@link Function} classes.
+ * The following example shows how to combine two functions using the predicate approach.
+ *
+ * @see <a href="https://functionalprogramming.medium.com/function-composition-in-java-beaf39426f52">Source: Dimitris Papadimitriou on Medium</a>
+ */
 public class FunctionComposition {
     public static void main(String[] args) {
-    Function<Integer, Integer> doubleing = t -> t * 2;
-    Function<Integer, Integer> remove1 = t -> t  - 1;
-    var FirstRemove1ThenDouble = doubleing.compose(remove1);
-    var FirstDoubleThenRemove1 = doubleing.andThen(remove1);
-    System.out.println(FirstDoubleThenRemove1.apply(2));
-    System.out.println(FirstRemove1ThenDouble.apply(2));
+        Function<Integer, Integer> doubleInt = t -> t * 2;
+        Function<Integer, Integer> subtractOne = t -> t - 1;
+
+        var firstSubtractOneThenDouble = doubleInt.compose(subtractOne);
+        var firstDoubleThenSubtractOne = doubleInt.andThen(subtractOne);
+
+        System.out.println(firstDoubleThenSubtractOne.apply(2)); // prints 3
+        System.out.println(firstSubtractOneThenDouble.apply(2)); // prints 3
     }
 }
