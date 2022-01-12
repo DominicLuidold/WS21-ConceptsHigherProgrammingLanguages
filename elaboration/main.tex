@@ -23,7 +23,7 @@
 
 % Einstellungen:
 \captionsetup{format=hang, justification=raggedright}
-\addbibresource{Sourcesdbo2019.bib}
+\addbibresource{Sources.bib}
 \setcounter{secnumdepth}{4}
 \renewcommand{\listingscaption}{Sourcecode}
  \renewcommand\listoflistingscaption{Sourcecode}
@@ -70,11 +70,6 @@
 \pdfbookmark{\contentsname}{toc}
 \tableofcontents
 
-\clearpage
-\phantomsection
-\addcontentsline{toc}{chapter}{List of Figures}
-\listoffigures
-
 % Abkürzungsverzeichnis:
 \clearpage
 \phantomsection
@@ -88,22 +83,29 @@
 \cleardoublepage
 \pagenumbering{arabic}
 \chapter{Introduction}
-This written elaboration contains the different concepts covered in the lecture \enquote{Concepts of Higher Programming Languages} implemented with the \ac{OOP} language Java. Each implementation is complemented by a short explanation.
+This written elaboration contains various concepts of functional programming that are covered in the lecture "Concepts of Higher Programming Languages" in the first semester Master of Science at the Vorarlberg University of Applied Sciences. The concepts and patterns covered in this course are implemented in this paper using the \ac{OOP} language Java. Each implementation is complemented by a short explanation.
 
-Additionally, a \texttt{StateMonat} is implemented and an example is provided to demonstrate using the monad implementation.
+In addition, a \texttt{StateMonad} is implemented in Java and an example of how to use the Monad implemnetation is provided.
 
 \chapter{Implementation of the various concepts}
-In this chapter, the different concepts are explained again and then brought closer to the readers with a program example.
+This chapter covers the implementation of eight functional programming concepts and their respective \acs{OOP} counterparts written in Java. The concepts and patterns are each accompanied by a brief explanation as well as a working Java example.
+
 \section{Immutable Data}
-Immutable Data is a principle that states that once data is created, it cannot be subsequently changed. In general, data and objects should be Mutable only when there is a valid reason. 
+Immutable Data is a principle that states that once data has been created, it subsequently cannot be changed. In general, data and objects should only be mutable if there is a valid reason for doing so.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ImmutablePair.java}
-    \caption[Example for Immutabale data]{Example for Immutabale data.}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ImmutableIntegerPair.java}
+    \caption[Example of an immutable data structure]{Example of an immutable data structure}
     \label{code:immutable}
 \end{listing}
-The \emph{Sourcecode \ref{code:immutable}} shows how to make immutable in a variable like x, this is done using the keyword final. Additionally you can't set the variables from outside, because there are no set methods, but this variant has the disadvantage that you could write a class which extends the ImmutablePair and is still mutable, to prevent this you have to make the class immutable with the keyword final (public final class ImmutablePair).
-Furthermore there are also possibilities to make lists unmodifiable with the function Collections.unmodifiableList(mutablelist); but since this is self-explanatory it is not explained in detail in the sample code.
-\clearpage
+
+\emph{Sourcecode \ref{code:immutable}} on page \pageref{code:immutable} shows how an immutable data structure may look. The variables \texttt{x} and \texttt{y}, which contain the data, can no longer be modified after the value has initially been set as a result of the \texttt{final} keyword. Additionally, the variables cannot be changed from outside the class as there are no setters present.
+
+There is, however, still a possibility to make the data structure mutable: Extending the \texttt{ImmutableIntegerPair} allows one to extend the functionality of the data structure and store mutable data. To prevent this, the keyword \texttt{final} can be used again, this time at class level as opposed to variable level.
+
+\medskip
+
+Furthermore, there are also ways to make lists immutable when the list data type is the preferred/required way of storing data. Java itself provides a static method \texttt{Collections::unmodifiableList()} which prevents the data from being modified. However, the data type that is stored in the list must also be immutable to achieve immutability.
 
 \section{Type Variables}
 For the area of type variables there is the possibility of generic programming in Java. Here one can restrict like with Haskell which types are permitted. This restriction can be made in Java by interfaces or classes and write for example <? extends Integer>.
