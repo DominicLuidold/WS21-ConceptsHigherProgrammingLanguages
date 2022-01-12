@@ -1,6 +1,6 @@
 import Test.QuickCheck
 -- 16 Property-Based Testing
-
+-- Source: https://www.dcc.fc.up.pt/~pbv/aulas/tapf/handouts/quickcheck.html
 -- 16.6.1 Checking msort (5 Points)
 
 -- 5.5.2 Merge Sort
@@ -51,20 +51,39 @@ prop_isCommutativeFloat :: Float -> Float -> Float -> Bool
 prop_isCommutativeFloat a b c = a + (b + c) == (a + b) + c
 
 -- 16.6.3 Dice
+-- UseFull Link: https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/slides/meiser.pdf
 
-dice :: Gen Int
-dice =
-    choose (1, 6)
+-- Problem -> We can not create a new Arbitrary Int  
+-- dice :: Gen Int
+-- dice =
+--     choose (1, 6)
 
-sum_dice :: Gen Int
-sum_dice = do
-    d1 <- dice
-    d2 <- dice
-    return (d1 + d2)
+-- sum_dice :: Gen Int
+-- sum_dice = do
+--     d1 <- dice
+--     d2 <- dice
+--     return (d1 + d2)
 
-prop_sumDice :: Gen Property -> Bool
-prop_sumDice = do 
-  d1 <- choose (1, 6)
-  d2 <- choose (1, 6)
-  sum <- (+) <$> d1 <*> d2
-  return sum === 7
+-- instance Arbitrary Int where
+--     arbitrary = choose (1, 6)
+
+-- -- coverage
+-- --  quickCheck (checkCoverage checkCover)
+-- checkCover :: Int -> Int -> Property
+-- checkCover a  b = cover 16.67 (a + b == 7) "sum equals 7" (a + b == a + b)
+
+
+-- Own Dice Type Like the Color in the Script 
+newtype Dice = Dice Int deriving Show
+
+roleDice :: Gen Dice
+roleDice = elements [Dice 1, Dice 2, Dice 3, Dice 4, Dice 5, Dice 6]
+
+instance Arbitrary Dice where
+    arbitrary = roleDice
+
+-- coverage
+-- quickCheck (checkCoverage checkDiceSum)
+-- See https://hackage.haskell.org/package/QuickCheck-2.14.2/docs/Test-QuickCheck.html
+checkDiceSum :: Dice -> Dice -> Property
+checkDiceSum (Dice a) (Dice b) = cover 16.67 (a + b == 7) "equal 7" (a + b == a + b) -- Expected Value 1/6 => http://mathcentral.uregina.ca/QQ/database/QQ.09.97/thompson1.html
