@@ -20,7 +20,7 @@ primesConcurrent y = do
   print n
 
 primesThread :: IORef [Integer] -> Integer -> IO ()
-primesThread ref n = atomicModifyIORef ref (\acc -> (if is_prime acc n then acc ++ [n] else acc, ())) -- Currently calcs fibonacci
+primesThread ref n = atomicModifyIORef ref (\acc -> (if is_prime acc n then acc ++ [n] else acc, ()))
 
 is_prime :: [Integer] -> Integer -> Bool
 is_prime [] _ = True
@@ -72,4 +72,55 @@ consume var = do
         do
             when (isPrime n) (print n)
             consume var
-      
+
+-- 15.3.3 Primes with TChan 
+-- Compute the prime numbers between 1-n concurrently using TChan and Async/Wait.
+
+-- Hints:
+
+-- 1 The main thread enqueues each natural number into a TChan and then creates c consumer threads which take the next number from the TChan.
+-- A consumer checks the natural number whether it is prime or not and in case it is, puts it into a different TChan which contains only the final prime numbers.
+-- The prime number check can therefore happen in the STM Monad.
+-- 3. The consumer threads should terminate as soon as there are no more elements in the natural number TChan.
+-- The main thread waits for the termination of all consumer threads using wait and then prints the content of the primes TChan.
+-- Source: https://hackage.haskell.org/package/stm-2.5.0.2/docs/Control-Concurrent-STM-TChan.html
+-- Source: https://stackoverflow.com/questions/12945690/selective-send-on-tchan
+
+tChanPrimesmain :: Integer -> Integer -> IO () -- Siehe Powerpoint Page 20
+tChanPrimesmain n c = do
+  -- n max Value of Prime,  c count of Consumers
+  numbers <- newTChanIO
+  result <- newTChanIO
+  -- Write number each to TChan
+  let numsToChan count = do
+        writeTChan numbers count
+        when (count < 5) (numsToChan (count + 1))
+  atomically $ numsToChan 1
+
+  -- create c consumer
+  consumers <- replicateM (fromInteger c) (async $ atomically $ consume' numbers result)
+  mapM_ wait consumers -- Page 25
+
+  let consuming = do
+        isEmpty <- atomically $ isEmptyTChan numbers
+        -- 3
+        if isEmpty then do
+            return ()
+        else do
+            --print all primes
+            a <- atomically $ readTChan result
+            print a
+            consuming
+  consuming
+
+
+consume' :: TChan Integer -> TChan Integer -> STM () 
+consume' n result = do
+  isEmpty <- isEmptyTChan n
+  if isEmpty -- if no value is there
+    then do
+      return ()
+    else do
+        currentvalue <- readTChan n
+        when (isPrime currentvalue) (writeTChan result currentvalue)
+        consume' n result
