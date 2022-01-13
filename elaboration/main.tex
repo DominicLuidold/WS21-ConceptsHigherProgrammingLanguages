@@ -121,18 +121,21 @@ A \textit{Higher-Order Function} is a function that either takes a function as a
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/HigherOrderFunctions.java}
-    \caption[Example for Higher Order Function]{Example for Higher Order Function}
+    \caption[Example of a Higher-Order Function in Java 8]{Example of a Higher-Order Function in Java 8}
     \label{code:higherordered}
 \end{listing}
 
 \section{Lambda Expressions}
+The method \texttt{listLambdas} in \textit{Sourcode \ref{code:Lambda}} on page \ref{code:Lambda} increments the \texttt{Integer} values stored in a \texttt{List} by one. This is achieved by the rather short code fragment \texttt{map(x -> ++x)}.
+
+The same functionality can be achieved be creating an anonymous \texttt{Function} instance within the \texttt{map} method (not shown in this example), which has been the recommended and only way until to Java 8 to implement such functionality. However, Lambda Expressions have the advantage of code that is usually more readable and requires less boilerplate code.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Lambda.java}
-    \caption[Example for Lambda]{Example for Lambda Expressions.}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/LambdaExpressions.java}
+    \caption[Example of a Lambda Expression]{Example of a Lambda Expression}
     \label{code:Lambda}
 \end{listing}
-With the method listLambdas in \emph{Sourcecode \ref{code:Lambda}} you can see how with a lambda function the values of the list are increased by 1. In the past, anonymous classes often had to be used instead of lambdas in Java, but this has been curbed somewhat with Java 8 and the lambdas and usually makes the code more readable.
-\clearpage
+
 \section{Currying}
 Currying is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \emph{Sourcecode \ref{code:Currying}} is inspired by \cite{Robertson_currying_2018} in which multiplication was done by currying. This is emulated with the function multcurry where the multiplications can be strung together.
 \begin{listing}[ht]
