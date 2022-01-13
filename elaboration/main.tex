@@ -154,24 +154,31 @@ The same functionality can be achieved be creating an anonymous \texttt{Function
 \clearpage
 
 \section{Function Composition and Streaming}
+
 \subsection{Function Composition}
-Function composition is the combination of two functions into a new function. You simply take the output of the first function and use it as input for the second function. To be able to demonstrate this in \emph{Sourcecode \ref{code:Compose}} the functions doubleing and remove1 were expressed by means of Lambda and used for an example. Here it is remarkable that with .compose(<function>) the function is put in front and with andThen(<function>) the function is put after.
+\textit{Function Composition} is applying the pattern of combining multiple separate functions into a single function. The output of the first function is then used as input for the second function and so on. To be able to demonstrate this in an example, \textit{Sourcecode \ref{code:Compose}} on page \pageref{code:Compose} containts the functions \texttt{doubleInt} and \texttt{substractOne} - both based on the use of Lambda Expressions. 
+
+An important part of Function Composition is that order matters. While using  \texttt{compose(<fn>)} results in the supplied function (\texttt{substractOne}) being executed before the initial function (\texttt{doubleInt}), using \texttt{andThen(<fn>)} has the opposite result.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/FunctionComposition.java}
-    \caption[Example for Function Composition]{Example for Function Composition and that order can be Important.}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/FunctionComposition.java}
+    \caption[Example of Function Composition and that order matters]{Example of Function Composition and that order matters}
     \label{code:Compose}
 \end{listing}
+
 \clearpage
 
 \subsection{Streaming}
-A stream represents a sequence of objects that can be accessed in sequential order.
-One of the better known streams in Java is probably the filestream this is used in \emph{Sourcecode \ref{code:Streaming}}.
+A \textit{Stream} or \textit{Streaming} represents a sequence of objects that are accessed in sequential order. One of the best known and most frequently used Streams in Java is probably the \texttt{FileStream}, which is used to read files and file contents. \textit{Sourcecode \ref{code:Streaming}} on page \pageref{code:Streaming} shows this in a small, but only theoretical example.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Streaming.java}
-    \caption[Example for Streaming]{Example for Streaming.}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/Streaming.java}
+    \caption[Example of Streaming]{Example of Streaming.}
     \label{code:Streaming}
 \end{listing}
+
 \clearpage
+
 \section{Algebraic Data Types}
 An \ac{ADT} consists of several variants or flavors, similar to a Java enum, but the different flavors can have different properties or methods.
 
