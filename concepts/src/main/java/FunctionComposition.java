@@ -18,6 +18,6 @@ public class FunctionComposition {
         var firstDoubleThenSubtractOne = doubleInt.andThen(subtractOne);
 
         System.out.println(firstDoubleThenSubtractOne.apply(2)); // prints 3
-        System.out.println(firstSubtractOneThenDouble.apply(2)); // prints 3
+        System.out.println(firstSubtractOneThenDouble.apply(2)); // prints 2
     }
 }
