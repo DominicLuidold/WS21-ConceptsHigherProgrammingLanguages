@@ -1,21 +1,20 @@
-import java.util.Arrays;
 import java.util.function.Function;
-// Example 2 https://www.geeksforgeeks.org/currying-functions-in-java-with-examples/
-//Source: http://baddotrobot.com/blog/2013/07/21/curried-functions/
+
+/**
+ * @see <a href="https://www.geeksforgeeks.org/currying-functions-in-java-with-examples/">Source: GeeksForGeeks</a>
+ * @see <a href="http://baddotrobot.com/blog/2013/07/21/curried-functions/">Source: Toby Weston on bad.robot</a>
+ */
 public class Currying {
     public static int multNormal(int a, int b) {
         return a * b;
     }
 
-    public static Function<Integer, Function<Integer, Integer>> multcurry() {
+    public static Function<Integer, Function<Integer, Integer>> multCurry() {
         return x -> y -> x * y;
     }
 
     public static void main(String[] args) {
-        var mult1 = multNormal(1,5); //= 5
-
-        System.out.println(mult1); //prints 5
-        System.out.println(multcurry().apply(1).apply(5)); // prints 5
-
+        System.out.println(multNormal(1, 5)); // prints 5
+        System.out.println(multCurry().apply(1).apply(5)); // prints 5
     }
 }
