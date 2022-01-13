@@ -1,6 +1,7 @@
-package statemonad;
+package statemonade;
 
-public class StateTuple<S, C> {
+
+public class StateTuple <S,C>{
     private S state;
     private C content;
 
@@ -8,6 +9,7 @@ public class StateTuple<S, C> {
         this.state = state;
         this.content = content;
     }
+
 
     public C getContent() {
         return content;

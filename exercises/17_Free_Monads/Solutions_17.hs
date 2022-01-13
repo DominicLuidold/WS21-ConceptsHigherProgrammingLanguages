@@ -45,3 +45,6 @@ checkFixCos x = fix (\f b ->
         then b
         else f (cos b)
     ) x
+
+
+--Inspiredby:  https://github.com/thalerjonathan/NimFreeMonad/blob/main/src/Nim.hs

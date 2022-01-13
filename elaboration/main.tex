@@ -200,7 +200,48 @@ Impure: are all effects which interact with the outside world this is declared i
     \label{code:Effects}
 \end{listing}
 \clearpage
+\section{State Monad in Java}
+In the following sections the state monad is implemented with Java and this implementation was done using the elaboration of \cite{muzietto_state_2014}.
+\newline
+What is a Monad? 
+Matt Fowler in \cite{fowler_understanding_2015} describes it like this:
+"Imagine a monad as a container that wraps a value and provides us with a set of transformations over this value and the ability to get this value back with all the transformations applied."
 
+\subsection{Implementation}
+The methods Lift or bind were implemented, and a Tupel for the state and the Content as Values.
+In the class State Monade in the  \emph{Sourcecode \ref{code:StateMonad}} we see the method liftM which corresponds to the bind, see haskell f m = m >>= \\x -> return (f x).
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateMonad.java}
+    \caption[State Monad]{State Monad}
+    \label{code:StateMonad}
+\end{listing}
+\clearpage
+
+\emph{Sourcecode \ref{code:StateTuple}} shows the pair representing the state and the content of the data.
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateTuple.java}
+    \caption[State Tuple]{State Tuple}
+    \label{code:StateTuple}
+\end{listing}
+\clearpage
+
+\subsection{Implementing Tree Labeling}
+In the source code \emph{Sourcecode \ref{code:TreeLabeling}} an example is shown which shows the labeling of a binary tree (see. \emph{Sourcecode \ref{code:Tree}} ).
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Labeling.java}
+    \caption[Tree Labeling]{Tree Labeling}
+    \label{code:TreeLabeling}
+\end{listing}
+\clearpage
+
+\begin{listing}[ht]
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Tree.java}
+    \caption[Tree]{Tree}
+    \label{code:Tree}
+\end{listing}
+\clearpage
+
+%http://learnyouahaskell.com/a-fistful-of-monads#monad-laws
 % Literaturverzeichnis:
 \clearpage
 \phantomsection
