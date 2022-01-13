@@ -116,6 +116,8 @@ As far as the concept of \textit{Type Variables} is concerned, Java - being a st
     \item Checking types at run time is possible using \texttt{instanceof} when there are several types possible at one point in a time, for example when having a common interface and different classes inheriting that interface.
 \end{itemize}
 
+\clearpage
+
 \section{Higher-Order Functions}
 A \textit{Higher-Order Function} is a function that either takes a function as an argument or has a function as a return value. Implementing this concept has been possible since Java 8 - an example for that is shown in \textit{Sourcode \ref{code:higherordered}} on page \pageref{code:higherordered}. The method \texttt{camelize} capitalises the first character of a string and returns the required method/function calls when called. This method also makes use of \textit{Lambdas}, which is explained in more detail in a subsequent chapter.
 
@@ -124,6 +126,8 @@ A \textit{Higher-Order Function} is a function that either takes a function as a
     \caption[Example of a Higher-Order Function in Java 8]{Example of a Higher-Order Function in Java 8}
     \label{code:higherordered}
 \end{listing}
+
+\clearpage
 
 \section{Lambda Expressions}
 The method \texttt{listLambdas} in \textit{Sourcode \ref{code:Lambda}} on page \ref{code:Lambda} increments the \texttt{Integer} values stored in a \texttt{List} by one. This is achieved by the rather short code fragment \texttt{map(x -> ++x)}.
@@ -136,13 +140,17 @@ The same functionality can be achieved be creating an anonymous \texttt{Function
     \label{code:Lambda}
 \end{listing}
 
+\clearpage
+
 \section{Currying}
-Currying is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \emph{Sourcecode \ref{code:Currying}} is inspired by \cite{Robertson_currying_2018} in which multiplication was done by currying. This is emulated with the function multcurry where the multiplications can be strung together.
+\textit{Currying} is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \textit{Sourcecode \ref{code:Currying}} on page \pageref{code:Currying} is inspired by \cite{Robertson_currying_2018} in which multiplication was performed by currying. This is emulated with the function \texttt{multCurry} where the multiplications can be concatenated.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Currying.java}
-    \caption[Example for Currying]{Example for multiplication with Currying.}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/Currying.java}
+    \caption[Example of Currying]{Example of Currying}
     \label{code:Currying}
 \end{listing}
+
 \clearpage
 
 \section{Function Composition and Streaming}
