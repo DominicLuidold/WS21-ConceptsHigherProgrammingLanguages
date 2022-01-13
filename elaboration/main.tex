@@ -117,13 +117,13 @@ As far as the concept of \textit{Type Variables} is concerned, Java - being a st
 \end{itemize}
 
 \section{Higher-Order Functions}
-A higher order function is a function that takes a function as an argument or returns a function. This is possible since Java 8. \emph{Sourcecode \ref{code:higherordered}} shows an example code where the method camelize turns the first characters of a string into a capital letter. In this method you can also see the use of lambdas which will be explained in more detail in one of the following sections
+A \textit{Higher-Order Function} is a function that either takes a function as an argument or has a function as a return value. Implementing this concept has been possible since Java 8 - an example for that is shown in \textit{Sourcode \ref{code:higherordered}} on page \pageref{code:higherordered}. The method \texttt{camelize} capitalises the first character of a string and returns the required method/function calls when called. This method also makes use of \textit{Lambdas}, which is explained in more detail in a subsequent chapter.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/HigherOrderFunctions.java}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/HigherOrderFunctions.java}
     \caption[Example for Higher Order Function]{Example for Higher Order Function}
     \label{code:higherordered}
 \end{listing}
-\clearpage
 
 \section{Lambda Expressions}
 \begin{listing}[ht]

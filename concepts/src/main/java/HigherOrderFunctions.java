@@ -6,7 +6,6 @@ import java.util.function.Function;
  * @see <a href="https://stackoverflow.com/a/15200056/5232876">Source: n1ckolas on Stackoverflow</a>
  */
 public class HigherOrderFunctions {
-
     public static void main(String[] args) {
         Function<Integer, Long> addOne = add(1L);
 
