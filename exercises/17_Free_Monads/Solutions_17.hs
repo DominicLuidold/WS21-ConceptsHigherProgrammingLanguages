@@ -35,7 +35,8 @@ fibonacci x = fibonacci(x - 1) + fibonacci(x - 2)
 
 -- 17.7.3 cos Fixed-Point Recursion
 -- fixCosIter :: Double -> [Double]
--- fixCosIter n = fix (\rec -> )
+fixCosIter :: Double -> [Double]
+fixCosIter = fix (\func n -> [n]++func (cos n))
 
 -- TODO
 -- checkFixCos :: Double -> (Int, Double)
