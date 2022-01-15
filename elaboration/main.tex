@@ -180,22 +180,18 @@ A \textit{Stream} or \textit{Streaming} represents a sequence of objects that ar
 \clearpage
 
 \section{Algebraic Data Types}
-An \ac{ADT} consists of several variants or flavors, similar to a Java enum, but the different flavors can have different properties or methods.
+\textit{\ac{ADT}} consist of several variants or \enquote{flavors}, similar to a Java Enum, but these different \enquote{flavors} can each have different properties and/or methods. To quickly summarise what we expect from an \ac{ADT}:
+\begin{itemize}
+    \item The expressions have different amounts and types of properties and methods.
+    \item At compile time, it is checked whether all have been taken into account.
+\end{itemize}
 
-To summarize again what we expect from an \ac{ADT}:
-The expressions have different numbers and types of properties and methods.
-At compile time it is checked that all expressions are also considered.
+Unfortunately, Java does not support \ac{ADT} natively, so we had to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the \textit{Visitor} and \textit{Sealed Class} design patterns are helpful. Since Java 15, the \texttt{sealed} keyword is available, but the following example nevertheless includes a manually implemented \textit{sealed} functionality - \textit{Sourcecode \ref{code:ADT}} shows a corresponding Java implementation of the \textit{Dead or Alive} State from the lecture notes\footnote{\href{https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1}{Lecture Notes, Jonathan Thaler, Ph.D (visited on 2022/01/06)}}
 
-Unfortunately, Java does not support ADT from scratch, so we have to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the design patterns Visitor and Sealed Class are helpful. In Java 15 the sealed class should be automatically integrated but in Sorce code it was still implemented manually without the sealed keyword.
+\inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/AlgebraicDataTypes.java}
+\captionof{listing}{\enquote{Dead or Alive} example to demonstrate \ac{ADT}\label{code:ADT}}
 
-\emph{Sourcecode \ref{code:ADT}} shows a Java implementation of the Alive or Date State from the lecture notes \footnote{ lecture notes: https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1 visited on 2022/01/06}.
-\begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ADT.java}
-    \caption[Example for a \ac{ADT}]{Dead or Alive Example to demonstrate \ac{ADT}.}
-    \label{code:ADT}
-\end{listing}
 \clearpage
-
 
 \section{Pure and Impure Side Effects}
 Pure: Side effects are effects which are influenced by the Pure calculation and are always deterministic because they do not communicate with the outside world. \emph{Sourcecode \ref{code:Effects}} shows the change of the "State" in the method Pure.
@@ -218,7 +214,7 @@ Matt Fowler in \cite{fowler_understanding_2015} describes it like this:
 The methods Lift or bind were implemented, and a Tupel for the state and the Content as Values.
 In the class State Monade in the  \emph{Sourcecode \ref{code:StateMonad}} we see the method liftM which corresponds to the bind, see haskell f m = m >>= \\x -> return (f x).
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateMonad.java}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/statemonad/StateMonad.java}
     \caption[State Monad]{State Monad}
     \label{code:StateMonad}
 \end{listing}
@@ -226,7 +222,7 @@ In the class State Monade in the  \emph{Sourcecode \ref{code:StateMonad}} we see
 
 \emph{Sourcecode \ref{code:StateTuple}} shows the pair representing the state and the content of the data.
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateTuple.java}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/statemonad/StateTuple.java}
     \caption[State Tuple]{State Tuple}
     \label{code:StateTuple}
 \end{listing}
@@ -235,20 +231,19 @@ In the class State Monade in the  \emph{Sourcecode \ref{code:StateMonad}} we see
 \subsection{Implementing Tree Labeling}
 In the source code \emph{Sourcecode \ref{code:TreeLabeling}} an example is shown which shows the labeling of a binary tree (see. \emph{Sourcecode \ref{code:Tree}} ).
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Labeling.java}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/statemonad/Labelling.java}
     \caption[Tree Labeling]{Tree Labeling}
     \label{code:TreeLabeling}
 \end{listing}
 \clearpage
 
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Tree.java}
+    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/statemonad/Tree.java}
     \caption[Tree]{Tree}
     \label{code:Tree}
 \end{listing}
 \clearpage
 
-%http://learnyouahaskell.com/a-fistful-of-monads#monad-laws
 % Literaturverzeichnis:
 \clearpage
 \phantomsection
