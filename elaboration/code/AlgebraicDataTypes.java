@@ -1,21 +1,17 @@
-public abstract class ADT {
-
-
-    private ADT() {
+public abstract class AlgebraicDataTypes {
+    private AlgebraicDataTypes() {
     }
 
-    public static final class Alive extends ADT {
+    public static final class Alive extends AlgebraicDataTypes {
         private Alive() {
         }
-
-        public static final Alive INSTANCE = new Alive();
 
         public <T> T isAlive(IsAliveChecker<T> visitor) {
             return visitor.isAlive(this);
         }
     }
 
-    public static final class Dead extends ADT {
+    public static final class Dead extends AlgebraicDataTypes {
         public Dead() {
         }
 
@@ -24,11 +20,11 @@ public abstract class ADT {
         }
     }
 
-    // The IsAliveChecker Interface ensures that all possible expressions
+    // The IsAliveChecker interface ensures that all possible expressions
     // are taken into account, provided that the interface
     // is also used in the implementation of the business logic.
 
-    // The Sealed Classs pattern uses an abstract class
+    // The Sealed Class pattern uses an abstract class
     // with a private constructor so that concrete classes
     // can only be created as inner classes within the ADT.
     public interface IsAliveChecker<T> {
@@ -40,23 +36,20 @@ public abstract class ADT {
     public abstract <T> T isAlive(IsAliveChecker<T> visitor);
 
     public static void main(String[] args) {
-        var state = new Dead();
-        var bool = state.isAlive(new IsAliveChecker<Boolean>() {
+        Dead state = new Dead();
+        Boolean bool = state.isAlive(new IsAliveChecker<>() {
 
-            public Boolean isAlive(ADT.Alive a) {
+            public Boolean isAlive(Alive a) {
                 return true;
             }
-            public Boolean isAlive(ADT.Dead a) {
+
+            public Boolean isAlive(Dead a) {
                 return false;
             }
         });
+
         // By using IsAliveChecker here and not if-instanceOf-else,
         // we can be sure at compile time that all possible cases have been considered.
         System.out.println(bool);
-
     }
-
 }
-
-
-
