@@ -193,7 +193,7 @@ A \textit{Stream} or \textit{Streaming} represents a sequence of objects that ar
     \item At compile time, it is checked whether all have been taken into account.
 \end{itemize}
 
-Unfortunately, Java does not support \ac{ADT} natively, so we had to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the \textit{Visitor} and \textit{Sealed Class} design patterns are helpful. Since Java 15, the \texttt{sealed} keyword is available, but the following example nevertheless includes a manually implemented \textit{sealed} functionality - \textit{Source Code \ref{code:ADT}} shows a corresponding Java implementation of the \textit{Dead or Alive} State from the lecture notes\footnote{\href{https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1}{Lecture Notes, Jonathan Thaler, Ph.D (visited on 2022/01/06)}}
+Unfortunately, Java does not support \ac{ADT} natively, so we had to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the \textit{Visitor} and \textit{Sealed Class} design patterns are helpful. Since Java 15, the \texttt{sealed} keyword is available, but the following example nevertheless includes a manually implemented \textit{sealed} functionality. \textit{Source Code \ref{code:ADT}} on page \pageref{code:ADT} and before shows a corresponding Java implementation of the \textit{Dead or Alive} State from the lecture notes\footnote{\href{https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1}{Lecture Notes, Jonathan Thaler, Ph.D (visited on 2022/01/06)}}
 
 \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/AlgebraicDataTypes.java}
 
@@ -215,48 +215,42 @@ Unfortunately, Java does not support \ac{ADT} natively, so we had to implement t
 \clearpage
 
 \section{State Monad in Java}
-In the following sections the state monad is implemented with Java and this implementation was done using the elaboration of \cite{muzietto_state_2014}.
-\newline
-What is a Monad? 
-Matt Fowler in \cite{fowler_understanding_2015} describes it like this:
-"Imagine a monad as a container that wraps a value and provides us with a set of transformations over this value and the ability to get this value back with all the transformations applied."
+The following section contains an implementation of the \textit{State Monad} in Java. During the implementation of the Monad, the work of \cite{muzietto_state_2014} was of great support. A question that might arise: \enquote{What is a Monad?}. Matt Fowler describes it as follows: 
+\begin{quote}
+    Think of monads as an object that wraps a value and allows us to apply a set of transformations on that value and get it back out with all the transformations applied. \cite{fowler_understanding_2015}
+\end{quote}
 
-\subsection{Implementation}
-The methods Lift or bind were implemented, and a Tupel for the state and the Content as Values.
-In the class State Monade in the  \emph{Source Code \ref{code:StateMonad}} we see the method liftM which corresponds to the bind, see haskell f m = m >>= \\x -> return (f x).
+\subsection{Implementing the State Monad}
+To develop a working State Monad in Java, both \textit{lift} and \textit{bind} had to be implemented as well as a \texttt{StateTuple} that stores the state as well as the values as content. \textit{Source Code \ref{code:StateMonad}} on page \pageref{code:StateMonad} shows the class \texttt{StateMonad<S, C>} with an implementation of \texttt{liftM} which corresponds to \textit{bind} - see Haskell: \texttt{f m = m $>$$>$= \textbackslash x -> return (f x)}.
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/StateMonad.java}
-    \caption[State Monad]{State Monad}
+    \caption[State Monad implementation]{State Monad implementation}
     \label{code:StateMonad}
 \end{listing}
+
 \clearpage
 
-\emph{Source Code \ref{code:StateTuple}} shows the pair representing the state and the content of the data.
+\textit{Source Code \ref{code:StateTuple}} on page \pageref{code:StateTuple} shows the implementation representing the state and the content of the data within the State Monad.
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/StateTuple.java}
-    \caption[State Tuple]{State Tuple}
+    \caption[\texttt{StateTuple} implementation]{\texttt{StateTuple} implementation}
     \label{code:StateTuple}
 \end{listing}
 \clearpage
 
-\subsection{Implementing Tree Labeling}
-In the source code \emph{Source Code \ref{code:TreeLabeling}} an example is shown which shows the labeling of a binary tree (see. \emph{Source Code \ref{code:Tree}} ).
+\subsection{Implementing Tree Labelling}
+\textit{Source Code \ref{code:TreeLabelling}} on page \pageref{code:TreeLabelling} and before shows the implementation of a \textit{Binary Tree} labelling, while \textit{Source Code \ref{code:Tree}} on page \pageref{code:Tree} shows the abstract class  \texttt{Tree} that defines the basic behaviour of the Binary Tree.
 
-\begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/Labelling.java}
-    \caption[Tree Labeling]{Tree Labeling}
-    \label{code:TreeLabeling}
-\end{listing}
-\clearpage
+\inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/Labelling.java}
+\captionof{listing}{Tree labelling implementation \label{code:TreeLabelling}}
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/Tree.java}
-    \caption[Tree]{Tree}
+    \caption[\texttt{Tree} implementation]{\texttt{Tree} implementation}
     \label{code:Tree}
 \end{listing}
-\clearpage
 
 % Literaturverzeichnis:
 \clearpage
