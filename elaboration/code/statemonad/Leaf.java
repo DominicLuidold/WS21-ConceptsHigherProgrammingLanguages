@@ -1,7 +1,7 @@
 package statemonad;
 
 public class Leaf<T> extends Tree<T> {
-    private T data;
+    private final T data;
 
     public Leaf(T data) {
         this.data = data;
@@ -9,8 +9,8 @@ public class Leaf<T> extends Tree<T> {
 
     @Override
     public void show() {
-        System.out.print("Leaf( "+data.toString()+" )");
-        }
+        System.out.print("Leaf( " + data.toString() + " )");
+    }
 
     @Override
     public boolean isLeaf() {

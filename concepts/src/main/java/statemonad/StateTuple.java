@@ -1,7 +1,6 @@
 package statemonad;
 
-
-public class StateTuple <S,C>{
+public class StateTuple<S, C> {
     private S state;
     private C content;
 
@@ -9,7 +8,6 @@ public class StateTuple <S,C>{
         this.state = state;
         this.content = content;
     }
-
 
     public C getContent() {
         return content;
@@ -29,6 +27,6 @@ public class StateTuple <S,C>{
 
     @Override
     public String toString() {
-        return "Lable:" +state+ " Data:" + content;
+        return "Lable:" + state + " Data:" + content;
     }
 }

@@ -20,13 +20,14 @@
 ]{hyperref} % Links
 \usepackage{acronym} 
 \usepackage{eurosym}
+\usepackage{float}
 
 % Einstellungen:
 \captionsetup{format=hang, justification=raggedright}
 \addbibresource{Sources.bib}
 \setcounter{secnumdepth}{4}
-\renewcommand{\listingscaption}{Sourcecode}
- \renewcommand\listoflistingscaption{Sourcecode}
+\renewcommand{\listingscaption}{Source Code}
+\renewcommand\listoflistingscaption{List of Source Codes}
 
 % Dokumentenbeginn
 \begin{document}
@@ -80,6 +81,12 @@
   \acro{OOP}{Object-oriented programming}
 \end{acronym}
 
+% Quellcodeverzeichnis
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Source Codes}
+\listoflistings
+
 \cleardoublepage
 \pagenumbering{arabic}
 \chapter{Introduction}
@@ -99,7 +106,7 @@ This chapter covers the implementation of eight functional programming concepts 
     \label{code:immutable}
 \end{listing}
 
-\textit{Sourcecode \ref{code:immutable}} on page \pageref{code:immutable} shows how an immutable data structure may look. The variables \texttt{x} and \texttt{y}, which contain the data, can no longer be modified after the value has initially been set as a result of the \texttt{final} keyword. Additionally, the variables cannot be changed from outside the class as there are no setters present.
+\textit{Source Code \ref{code:immutable}} on page \pageref{code:immutable} shows how an immutable data structure may look. The variables \texttt{x} and \texttt{y}, which contain the data, can no longer be modified after the value has initially been set as a result of the \texttt{final} keyword. Additionally, the variables cannot be changed from outside the class as there are no setters present.
 
 There is, however, still a possibility to make the data structure mutable: Extending the \texttt{ImmutableIntegerPair} allows one to extend the functionality of the data structure and store mutable data. To prevent this, the keyword \texttt{final} can be used again, this time at class level as opposed to variable level.
 
@@ -112,7 +119,7 @@ As far as the concept of \textit{Type Variables} is concerned, Java - being a st
 
 \begin{itemize}
     \item Each variable has to have an accompanying data type when getting declared, e.g. \texttt{int x = 1;}
-    \item Java natively supports Generics (as can be seen in \textit{Sourcecode \ref{code:ADT}} on page \pageref{code:ADT}) which allows types to be enforced based on the specific use case at compile time. Constructs such as \texttt{<? extends Integer>} additionally allow the restriction of which types are \enquote{allowed}.
+    \item Java natively supports Generics (as can be seen in \textit{Source Code \ref{code:ADT}} on page \pageref{code:ADT}) which allows types to be enforced based on the specific use case at compile time. Constructs such as \texttt{<? extends Integer>} additionally allow the restriction of which types are \enquote{allowed}.
     \item Checking types at run time is possible using \texttt{instanceof} when there are several types possible at one point in a time, for example when having a common interface and different classes inheriting that interface.
 \end{itemize}
 
@@ -143,7 +150,7 @@ The same functionality can be achieved be creating an anonymous \texttt{Function
 \clearpage
 
 \section{Currying}
-\textit{Currying} is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \textit{Sourcecode \ref{code:Currying}} on page \pageref{code:Currying} is inspired by \cite{Robertson_currying_2018} in which multiplication was performed by currying. This is emulated with the function \texttt{multCurry} where the multiplications can be concatenated.
+\textit{Currying} is the conversion of a function with multiple arguments into a sequence of functions with one argument each. \textit{Source Code \ref{code:Currying}} on page \pageref{code:Currying} is inspired by \cite{Robertson_currying_2018} in which multiplication was performed by currying. This is emulated with the function \texttt{multCurry} where the multiplications can be concatenated.
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/Currying.java}
@@ -156,7 +163,7 @@ The same functionality can be achieved be creating an anonymous \texttt{Function
 \section{Function Composition and Streaming}
 
 \subsection{Function Composition}
-\textit{Function Composition} is applying the pattern of combining multiple separate functions into a single function. The output of the first function is then used as input for the second function and so on. To be able to demonstrate this in an example, \textit{Sourcecode \ref{code:Compose}} on page \pageref{code:Compose} containts the functions \texttt{doubleInt} and \texttt{substractOne} - both based on the use of Lambda Expressions. 
+\textit{Function Composition} is applying the pattern of combining multiple separate functions into a single function. The output of the first function is then used as input for the second function and so on. To be able to demonstrate this in an example, \textit{Source Code \ref{code:Compose}} on page \pageref{code:Compose} containts the functions \texttt{doubleInt} and \texttt{substractOne} - both based on the use of Lambda Expressions. 
 
 An important part of Function Composition is that order matters. While using  \texttt{compose(<fn>)} results in the supplied function (\texttt{substractOne}) being executed before the initial function (\texttt{doubleInt}), using \texttt{andThen(<fn>)} has the opposite result.
 
@@ -169,7 +176,7 @@ An important part of Function Composition is that order matters. While using  \t
 \clearpage
 
 \subsection{Streaming}
-A \textit{Stream} or \textit{Streaming} represents a sequence of objects that are accessed in sequential order. One of the best known and most frequently used Streams in Java is probably the \texttt{FileStream}, which is used to read files and file contents. \textit{Sourcecode \ref{code:Streaming}} on page \pageref{code:Streaming} shows this in a small, but only theoretical example.
+A \textit{Stream} or \textit{Streaming} represents a sequence of objects that are accessed in sequential order. One of the best known and most frequently used Streams in Java is probably the \texttt{FileStream}, which is used to read files and file contents. \textit{Source Code \ref{code:Streaming}} on page \pageref{code:Streaming} shows this in a small, but only theoretical example.
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines]{java}{./code/Streaming.java}
@@ -180,75 +187,71 @@ A \textit{Stream} or \textit{Streaming} represents a sequence of objects that ar
 \clearpage
 
 \section{Algebraic Data Types}
-An \ac{ADT} consists of several variants or flavors, similar to a Java enum, but the different flavors can have different properties or methods.
+\textit{\ac{ADT}} consist of several variants or \enquote{flavors}, similar to a Java Enum, but these different \enquote{flavors} can each have different properties and/or methods. To quickly summarise what we expect from an \ac{ADT}:
+\begin{itemize}
+    \item The expressions have different amounts and types of properties and methods.
+    \item At compile time, it is checked whether all have been taken into account.
+\end{itemize}
 
-To summarize again what we expect from an \ac{ADT}:
-The expressions have different numbers and types of properties and methods.
-At compile time it is checked that all expressions are also considered.
+Unfortunately, Java does not support \ac{ADT} natively, so we had to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the \textit{Visitor} and \textit{Sealed Class} design patterns are helpful. Since Java 15, the \texttt{sealed} keyword is available, but the following example nevertheless includes a manually implemented \textit{sealed} functionality. \textit{Source Code \ref{code:ADT}} on page \pageref{code:ADT} and before shows a corresponding Java implementation of the \textit{Dead or Alive} State from the lecture notes\footnote{\href{https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1}{Lecture Notes, Jonathan Thaler, Ph.D (visited on 2022/01/06)}}
 
-Unfortunately, Java does not support ADT from scratch, so we have to implement this ourselves. For this, as described in \cite{MAINIERO_algebraic_2020}, the design patterns Visitor and Sealed Class are helpful. In Java 15 the sealed class should be automatically integrated but in Sorce code it was still implemented manually without the sealed keyword.
+\inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/AlgebraicDataTypes.java}
 
-\emph{Sourcecode \ref{code:ADT}} shows a Java implementation of the Alive or Date State from the lecture notes \footnote{ lecture notes: https://homepages.fhv.at/thjo/lecturenotes/concepts/declaring-types.html\#algebraic-data-types-1 visited on 2022/01/06}.
-\begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/ADT.java}
-    \caption[Example for a \ac{ADT}]{Dead or Alive Example to demonstrate \ac{ADT}.}
-    \label{code:ADT}
-\end{listing}
-\clearpage
-
+\begin{center}
+    \captionof{listing}{\enquote{Dead or Alive} example demonstrating \acs{ADT}\label{code:ADT}}
+\end{center}
 
 \section{Pure and Impure Side Effects}
-Pure: Side effects are effects which are influenced by the Pure calculation and are always deterministic because they do not communicate with the outside world. \emph{Sourcecode \ref{code:Effects}} shows the change of the "State" in the method Pure.
-\newline
-Impure: are all effects which interact with the outside world this is declared in \emph{Sourcecode \ref{code:Effects}} with the method Impure which waits for a user action
+\textit{Pure Side Effects} are effects which are solely caused by a method or calculation. They are always deterministic, as they do not communicate with the \enquote{outside world}. \textit{Source Code \ref{code:Effects}} on page \pageref{code:Effects} shows the change of the \texttt{State} within the method \texttt{pure}.
+
+\textit{Impure Side Effects} are all effects caused by interacting with the \enquote{outside world}. This can be seen in \textit{Source Code \ref{code:Effects}} within the \texttt{impure} method which awaits user action/input.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/SideEffects.java}
-    \caption[Example for Side Effects]{Example for Side Effects.}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/SideEffects.java}
+    \caption[Example of Side Effects in Java]{Example of Side Effects in Java}
     \label{code:Effects}
 \end{listing}
-\clearpage
-\section{State Monad in Java}
-In the following sections the state monad is implemented with Java and this implementation was done using the elaboration of \cite{muzietto_state_2014}.
-\newline
-What is a Monad? 
-Matt Fowler in \cite{fowler_understanding_2015} describes it like this:
-"Imagine a monad as a container that wraps a value and provides us with a set of transformations over this value and the ability to get this value back with all the transformations applied."
 
-\subsection{Implementation}
-The methods Lift or bind were implemented, and a Tupel for the state and the Content as Values.
-In the class State Monade in the  \emph{Sourcecode \ref{code:StateMonad}} we see the method liftM which corresponds to the bind, see haskell f m = m >>= \\x -> return (f x).
+\clearpage
+
+\section{State Monad in Java}
+The following section contains an implementation of the \textit{State Monad} in Java. During the implementation of the Monad, the work of \cite{muzietto_state_2014} was of great support. A question that might arise: \enquote{What is a Monad?}. Matt Fowler describes it as follows: 
+\begin{quote}
+    Think of monads as an object that wraps a value and allows us to apply a set of transformations on that value and get it back out with all the transformations applied. \cite{fowler_understanding_2015}
+\end{quote}
+
+\subsection{Implementing the State Monad}
+To develop a working State Monad in Java, both \textit{lift} and \textit{bind} had to be implemented as well as a \texttt{StateTuple} that stores the state as well as the values as content. \textit{Source Code \ref{code:StateMonad}} on page \pageref{code:StateMonad} shows the class \texttt{StateMonad<S, C>} with an implementation of \texttt{liftM} which corresponds to \textit{bind} - see Haskell: \texttt{f m = m $>$$>$= \textbackslash x -> return (f x)}.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateMonad.java}
-    \caption[State Monad]{State Monad}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/StateMonad.java}
+    \caption[State Monad implementation]{State Monad implementation}
     \label{code:StateMonad}
 \end{listing}
+
 \clearpage
 
-\emph{Sourcecode \ref{code:StateTuple}} shows the pair representing the state and the content of the data.
+\textit{Source Code \ref{code:StateTuple}} on page \pageref{code:StateTuple} shows the implementation representing the state and the content of the data within the State Monad.
+
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/StateTuple.java}
-    \caption[State Tuple]{State Tuple}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/StateTuple.java}
+    \caption[\texttt{StateTuple} implementation]{\texttt{StateTuple} implementation}
     \label{code:StateTuple}
 \end{listing}
 \clearpage
 
-\subsection{Implementing Tree Labeling}
-In the source code \emph{Sourcecode \ref{code:TreeLabeling}} an example is shown which shows the labeling of a binary tree (see. \emph{Sourcecode \ref{code:Tree}} ).
-\begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Labeling.java}
-    \caption[Tree Labeling]{Tree Labeling}
-    \label{code:TreeLabeling}
-\end{listing}
-\clearpage
+\subsection{Implementing Tree Labelling}
+\textit{Source Code \ref{code:TreeLabelling}} on page \pageref{code:TreeLabelling} and before shows the implementation of a \textit{Binary Tree} labelling, while \textit{Source Code \ref{code:Tree}} on page \pageref{code:Tree} shows the abstract class  \texttt{Tree} that defines the basic behaviour of the Binary Tree.
+
+\inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/Labelling.java}
+\captionof{listing}{Tree labelling implementation \label{code:TreeLabelling}}
 
 \begin{listing}[ht]
-    \inputminted[fontsize=\footnotesize,linenos]{java}{./code/Tree.java}
-    \caption[Tree]{Tree}
+    \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/Tree.java}
+    \caption[\texttt{Tree} implementation]{\texttt{Tree} implementation}
     \label{code:Tree}
 \end{listing}
-\clearpage
 
-%http://learnyouahaskell.com/a-fistful-of-monads#monad-laws
 % Literaturverzeichnis:
 \clearpage
 \phantomsection
