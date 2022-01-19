@@ -48,10 +48,12 @@ data Expr = Val Int
 folde                 :: (Int -> a) -> (a -> a -> a) -> Expr -> a
 folde f g (Val n)     =  f n
 folde f g (Add e1 e2) =  g (folde f g e1) (folde f g e2)
+folde f g (Mul e1 e2) =  g (folde f g e1) (folde f g e2)
 
 evaluate             :: Expr -> Int
 evaluate (Val n)     =  n
 evaluate (Add e1 e2) =  folde toEnum (+) (Add e1 e2)
+evaluate (Mul e1 e2) =  folde toEnum (*) (Mul e1 e2)
 
 -- 7.8.4 Complete Tree
 checkcomplete :: Tree a -> Bool
