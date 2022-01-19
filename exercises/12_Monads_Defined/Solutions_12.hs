@@ -2,6 +2,7 @@
 import Data.Foldable
 import Data.Binary.Get (label)
 import Control.Monad.State
+import System.Random
 -- 12 Monads Defined
 
 -- 12.12.1 CPS
@@ -112,12 +113,21 @@ toState a = S (\s -> (a, s))
 runStateComp :: StateComp s a -> s -> (a,s)
 runStateComp (S f) s = f s
 
+evalStateComp :: StateComp s a -> s -> a
+evalStateComp rng = fst . runStateComp rng
+
+execStateComp :: StateComp s a -> s -> s
+execStateComp rng = snd . runStateComp rng
+
 labelTree' :: Tree a -> StateComp Int (Tree (a, Int))
 labelTree' (Leaf a)     = S (\labelNo -> (Leaf (a, labelNo + 1), labelNo + 1))
 labelTree' (Node l a r) = S (\labelNo -> ((a, labelNo + 1), labelNo + 1)) -->
                             \a' -> labelTree' l -->
                                 \l' -> labelTree' r -->
                                     \r' -> S (\labelNo -> (Node l' a' r', labelNo))
+
+labelTreeStateComp :: Tree a -> Tree (a,Int)
+labelTreeStateComp t = evalStateComp (labelTree' t) 0 
 
 -- Implement labelTree with the State Monad for which you need to import Control.Monad.State.
 labelTree'' :: MonadState Int m => Tree a -> m (Tree (a, Int))
@@ -131,3 +141,6 @@ labelTree'' (Leaf a) = do
     n <- get
     modify (+1)
     return (Leaf (a,n))
+
+labelTreeMonad :: Tree a -> Tree (a,Int)
+labelTreeMonad t = evalState (labelTree'' t) 0

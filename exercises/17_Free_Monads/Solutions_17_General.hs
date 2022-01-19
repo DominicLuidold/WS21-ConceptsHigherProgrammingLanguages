@@ -41,7 +41,7 @@ fibonacci x = fibonacci(x - 1) + fibonacci(x - 2)
 
 -- 17.7.3 cos Fixed-Point Recursion
 fixCosIter :: Double -> [Double]
-fixCosIter = fix (\func n -> [n] ++ func (cos n))
+fixCosIter = fix (\func n -> n : func (cos n))
 
 calcFixCosEndVal:: Double -> Double
 calcFixCosEndVal = fix (\f b ->
@@ -50,6 +50,7 @@ calcFixCosEndVal = fix (\f b ->
          else f (cos b)
      )
 
+-- 0.75 is near to the cos end value but it would also work with every other double value
 checkWithEpsilon:: Double -> Bool
 checkWithEpsilon value = abs(value - calcFixCosEndVal 0.75) > 0.0001
 
