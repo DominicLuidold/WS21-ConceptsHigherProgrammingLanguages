@@ -47,9 +47,8 @@ prop_isCommutative a b = a + b == b + a
 prop_isAssociativeFloat :: Float -> Float -> Float -> Bool
 prop_isAssociativeFloat a b c = a + (b + c) == (a + b) + c
 
-prop_isCommutativeFloat :: Float -> Float -> Float -> Bool
-prop_isCommutativeFloat a b c = a + (b + c) == (a + b) + c
-
+prop_isCommutativeFloat :: Float -> Float -> Bool
+prop_isCommutativeFloat a b  = a + b  == b + a
 -- 16.6.3 Dice
 -- UseFull Link: https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/slides/meiser.pdf
 
