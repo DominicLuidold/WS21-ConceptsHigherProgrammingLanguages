@@ -40,7 +40,7 @@ prop_isAssociative a b c = a + (b + c) == (a + b) + c
 prop_isCommutative :: Int -> Int  -> Bool --https://studyflix.de/mathematik/kommutativgesetz-2733
 prop_isCommutative a b = a + b == b + a
 
--- In computer science, unlike mathematics, floating point additions are usually not associative or commutative. This is also the case with haskell.
+-- In computer science, unlike mathematics, floating point additions are usually not associative. This is also the case with haskell.
 -- See:
 -- https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 -- https://en.wikipedia.org/wiki/Associative_property#:~:text=In%20mathematics%2C%20addition%20and%20multiplication,sized%20values%20are%20joined%20together.
