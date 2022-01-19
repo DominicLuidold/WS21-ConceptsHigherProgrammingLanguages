@@ -1,7 +1,8 @@
+import Data.Maybe
 -- 7 Declaring Type
 
 -- 7.8.2 Nat multiplication
-data Nat = Zero 
+data Nat = Zero
          | Succ Nat deriving Show
 
 int2nat :: Int -> Nat
@@ -53,13 +54,13 @@ evaluate (Val n)     =  n
 evaluate (Add e1 e2) =  folde toEnum (+) (Add e1 e2)
 
 -- 7.8.4 Complete Tree
-checkcomplete :: Tree a -> Bool 
+checkcomplete :: Tree a -> Bool
 checkcomplete (Leaf a) = True
 checkcomplete (Node a x b) = checkcomplete a && checkcomplete b && abs( checkheight a - checkheight  b) <=1
 
 checkheight :: Tree a -> Int
 checkheight (Leaf _) = 0
-checkheight (Node l _ r) = max(checkheight l) (checkheight r) + 1 --https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
+checkheight (Node l _ r) = max (checkheight l) (checkheight r) + 1 --https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
 
 -- 7.8.5 Natural Number sub and division
 
@@ -110,8 +111,10 @@ kvs1 = Elem 1 "ABC" (Elem 2 "DEF" Empty)
 
 insert :: (Eq a) => KVS a b -> a -> b -> KVS a b
 insert Empty k v = Elem k v Empty
-insert (Elem k v s) key value
-                    | k /= key  = Elem k v (Elem key value s)
+insert kvs@(Elem k v s) key value
+                    | isJust(get kvs key) && k /= key  = (Elem k v (insert s key value))
+                    | isNothing(get kvs key) && k /= key  = Elem k v (Elem key value s)
+                    | k == key  = Elem key value s
                     | otherwise = insert s key value
 
 remove :: (Eq a) => KVS a b -> a -> KVS a b
@@ -127,7 +130,7 @@ get (Elem k v s) key
                     | otherwise  = get s key
 
 has :: (Eq a) => KVS a b -> a -> Bool
-has Empty _ = False 
+has Empty _ = False
 has (Elem k _ s) key
-                    | k == key  = True 
+                    | k == key  = True
                     | otherwise = has s key
