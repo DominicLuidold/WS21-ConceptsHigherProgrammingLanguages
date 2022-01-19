@@ -4,7 +4,8 @@ import Control.Monad.Free
 import Control.Monad.Trans.Writer
 
 -- 17 Free Monads
-
+-- What is a Free Monad: https://stackoverflow.com/questions/13352205/what-are-free-monads
+-- Eine freeMonade erfüllt alle Monadengesetze, führt aber keine Kollabierung (d. h. keine Berechnung) durch. Sie baut lediglich eine verschachtelte Reihe von Kontexten auf. Der Benutzer, der einen solchen freien monadischen Wert erzeugt, ist dafür verantwortlich, etwas mit diesen verschachtelten Kontexten zu tun, so dass die Bedeutung einer solchen Komposition aufgeschoben werden kann, bis der monadische Wert erzeugt worden ist.
 fix :: (a -> a) -> a
 fix f = f (fix f)
 
