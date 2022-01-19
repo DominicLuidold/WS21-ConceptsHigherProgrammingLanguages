@@ -1,3 +1,4 @@
+import Data.Maybe
 -- 14 Monads In Use: IO
 -- 14 .7.2 Key Value Store IO
 
@@ -17,8 +18,10 @@ kvs1 = Elem 1 "ABC" (Elem 2 "DEF" Empty)
 
 insert :: (Eq a) => KVS a b -> a -> b -> KVS a b
 insert Empty k v = Elem k v Empty
-insert (Elem k v s) key value
-                    | k /= key  = Elem k v (Elem key value s)
+insert kvs@(Elem k v s) key value
+                    | isJust(get kvs key) && k /= key  = (Elem k v (insert s key value))
+                    | isNothing(get kvs key) && k /= key  = Elem k v (Elem key value s)
+                    | k == key  = Elem key value s
                     | otherwise = insert s key value
 
 remove :: (Eq a) => KVS a b -> a -> KVS a b
@@ -34,7 +37,7 @@ get (Elem k v s) key
                     | otherwise  = get s key
 
 has :: (Eq a) => KVS a b -> a -> Bool
-has Empty _ = False 
+has Empty _ = False
 has (Elem k _ s) key
-                    | k == key  = True 
+                    | k == key  = True
                     | otherwise = has s key
