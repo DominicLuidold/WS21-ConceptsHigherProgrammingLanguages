@@ -20,7 +20,8 @@ primesConcurrent y = do
   print n
 
 primesThread :: IORef [Integer] -> Integer -> IO ()
-primesThread ref n = atomicModifyIORef ref (\acc -> (if is_prime acc n then acc ++ [n] else acc, ()))
+primesThread ref n = atomicModifyIORef ref (\acc -> 
+  (if is_prime acc n then acc ++ [n] else acc, ()))
 
 is_prime :: [Integer] -> Integer -> Bool
 is_prime [] _ = True
@@ -94,7 +95,7 @@ tChanPrimesmain n c = do
   -- Write number each to TChan
   let numsToChan count = do
         writeTChan numbers count
-        when (count < 5) (numsToChan (count + 1))
+        when (count < n) (numsToChan (count + 1))
   atomically $ numsToChan 1
 
   -- create c consumer
