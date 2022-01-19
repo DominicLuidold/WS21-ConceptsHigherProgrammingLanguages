@@ -114,7 +114,7 @@ kvs1 = Elem 1 "ABC" (Elem 2 "DEF" Empty)
 insert :: (Eq a) => KVS a b -> a -> b -> KVS a b
 insert Empty k v = Elem k v Empty
 insert kvs@(Elem k v s) key value
-                    | isJust(get kvs key) && k /= key  = (Elem k v (insert s key value))
+                    | isJust(get kvs key) && k /= key  = Elem k v $ insert s key value
                     | isNothing(get kvs key) && k /= key  = Elem k v (Elem key value s)
                     | k == key  = Elem key value s
                     | otherwise = insert s key value
