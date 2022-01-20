@@ -23,15 +23,15 @@ public class Labelling {
         if (t.isLeaf()) {
             Leaf<Character> leaf = (Leaf<Character>) t;
 
-            return updateState.liftM((Integer state) -> new StateMonad<>((Integer s) -> new StateTuple<>(s, new Leaf<>(new StateTuple<>(state, leaf.getData())))));
+            return updateState.bind((Integer state) -> new StateMonad<>((Integer s) -> new StateTuple<>(s, new Leaf<>(new StateTuple<>(state, leaf.getData())))));
         } else {
             Node<Character> node = (Node<Character>) t;
             Tree<Character> oldLeft = node.getLeftChild();
             Tree<Character> oldRight = node.getRightChild();
 
             return labelTree(oldLeft)
-                    .liftM((Tree<StateTuple<Integer, Character>> leftLabeledSubtree) -> labelTree(oldRight)
-                            .liftM((Tree<StateTuple<Integer, Character>> rightLabeledSubtree) -> new StateMonad<>(
+                    .bind((Tree<StateTuple<Integer, Character>> leftLabeledSubtree) -> labelTree(oldRight)
+                            .bind((Tree<StateTuple<Integer, Character>> rightLabeledSubtree) -> new StateMonad<>(
                                     (Integer state) -> new StateTuple<>(state, new Node<>(leftLabeledSubtree, new StateTuple<>(state, node.getData()), rightLabeledSubtree)))));
         }
     }

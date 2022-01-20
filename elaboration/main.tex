@@ -221,7 +221,7 @@ The following section contains an implementation of the \textit{State Monad} in 
 \end{quote}
 
 \subsection{Implementing the State Monad}
-To develop a working State Monad in Java, both \textit{lift} and \textit{bind} had to be implemented as well as a \texttt{StateTuple} that stores the state as well as the values as content. \textit{Source Code \ref{code:StateMonad}} on page \pageref{code:StateMonad} shows the class \texttt{StateMonad<S, C>} with an implementation of \texttt{liftM} which corresponds to \textit{bind} - see Haskell: \texttt{f m = m $>$$>$= \textbackslash x -> return (f x)}.
+To develop a working State Monad in Java, both \textit{lift} and \textit{bind} had to be implemented as well as a \texttt{StateTuple} that stores the state as well as the values as content. \textit{Source Code \ref{code:StateMonad}} on page \pageref{code:StateMonad} shows the class \texttt{StateMonad<S, C>} with an implementation of \textit{bind}.
 
 \begin{listing}[ht]
     \inputminted[fontsize=\footnotesize,linenos,breaklines,breakanywhere]{java}{./code/statemonad/StateMonad.java}

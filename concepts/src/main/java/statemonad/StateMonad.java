@@ -27,9 +27,9 @@ public class StateMonad<S, C> {
      * Promote a function to a Monad.
      * <p>
      * In Haskell:
-     * liftM f m = m >>= \x -> return (f x)
+     * bind 
      */
-    public <B> StateMonad<S, B> liftM(final Function<C, StateMonad<S, B>> func) {
+    public <B> StateMonad<S, B> bind(final Function<C, StateMonad<S, B>> func) {
         return new StateMonad<S, B>((S s) -> {
             StateTuple<S, C> content = this.StatetoTuple(s);
             StateMonad<S, B> out = func.apply(content.getContent());
