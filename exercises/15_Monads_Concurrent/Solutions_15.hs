@@ -103,7 +103,7 @@ tChanPrimesmain n c = do
   mapM_ wait consumers -- Page 25
 
   let consuming = do
-        isEmpty <- atomically $ isEmptyTChan numbers
+        isEmpty <- atomically $ isEmptyTChan result
         -- 3
         if isEmpty then do
             return ()
