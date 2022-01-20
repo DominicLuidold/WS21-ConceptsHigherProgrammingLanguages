@@ -27,7 +27,8 @@ prop_isSorted x = isSorted (msort x)
 
 -- Own Version
 myIsSorted :: Ord a => [a] -> Bool
-myIsSorted (x:y:ys) = x > y && myIsSorted (y:ys)
+
+myIsSorted (x:y:ys) = x <= y && myIsSorted (y:ys)
 myIsSorted _ = True
 
 prop_MyIsSorted :: [Int] -> Bool
